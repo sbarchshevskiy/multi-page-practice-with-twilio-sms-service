@@ -9,7 +9,12 @@ const express = require('express');
 const router  = express.Router();
 
 
+<<<<<<< HEAD
 module.exports = ({ getUsers }) => {
+=======
+
+module.exports = (db) => {
+>>>>>>> routes
   router.get("/", (req, res) => {
     getUsers()
       .then(users => {
@@ -21,6 +26,14 @@ module.exports = ({ getUsers }) => {
           .json({ error: err.message });
       });
   });
+
   return router;
 };
+
+
+router.get('/login', (req, res) => {
+  console.log('login . get router');
+  res.end();
+});
+
 
