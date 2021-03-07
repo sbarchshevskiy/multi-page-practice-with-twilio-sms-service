@@ -9,11 +9,11 @@ const express = require('express');
 const router  = express.Router();
 
 
-app.use(express.json());
 
 
 
-module.exports = ({ getUsers }) => {
+
+module.exports = (db) => {
   router.get("/", (req, res) => {
     getUsers()
     .then(users => {
