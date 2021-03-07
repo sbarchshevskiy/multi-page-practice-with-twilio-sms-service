@@ -7,9 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const app = express();
 
-app.use(express.json());
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -25,17 +23,12 @@ module.exports = (db) => {
       });
   });
   return router;
-
 };
 
-router
-  .route('/login')
+app.get("/login", (req, res) => {
+  res.render("login");
+});
 
-  .get((req, res) => {
-    res.send('login test')
-    res.render('/login')
-    console.log('login render')
-  })
-  .post((req, res) =>{
-    console.log('post login')
-})
+app.post("/login")
+
+
