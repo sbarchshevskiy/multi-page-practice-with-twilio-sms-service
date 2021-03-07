@@ -9,10 +9,6 @@ const express = require('express');
 const router  = express.Router();
 
 
-app.use(express.json());
-
-
-
 module.exports = ({ getUsers }) => {
   router.get("/", (req, res) => {
     getUsers()
