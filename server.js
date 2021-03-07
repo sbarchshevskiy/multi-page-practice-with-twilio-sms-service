@@ -46,10 +46,6 @@ app.use("/api/users", usersRoutes(dbHelpers));
 app.use("/api/widgets", widgetsRoutes(dbHelpers));
 
 
-
-
-
-
 // Note: mount other resources here, using the same pattern above
 
 
