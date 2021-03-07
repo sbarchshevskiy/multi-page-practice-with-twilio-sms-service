@@ -7,13 +7,13 @@
 
 const express = require('express');
 const router  = express.Router();
+const getUsers = require('../helpers/userHelpers');
 
 
-app.use(express.json());
 
 
 
-module.exports = ({ getUsers }) => {
+module.exports = (db) => {
   router.get("/", (req, res) => {
     getUsers()
     .then(users => {

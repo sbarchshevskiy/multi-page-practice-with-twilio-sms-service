@@ -5,7 +5,5 @@ const getUsers = () => {
   }
   return db.query(query).then(result => result.rows)
 }
-  return {
-    getUsers
-  }
+ return getUsers();
 }
