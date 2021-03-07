@@ -7,3 +7,40 @@ body {
     color: #244751;
   }
 }
+
+
+
+/*sets background theme*/
+.container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.background-image {
+  height: 1569px;
+  width: 1388px;
+  background-image: linear-gradient(rgba(26,26, 26, 0.7), rgba(26,26, 26, 0.7), url("../images/loginSample.png"));
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.background-image-copy {
+  padding-top: em(70);
+  text-align: center;
+
+  h1 {
+    font-size: em(48);
+    margin-bottom: .5em;
+  }
+  p {
+    margin: auto;
+    margin-bottom: 3em;
+    font-weight: 200;
+    line-height: 1.4em;
+  }
+
+}
