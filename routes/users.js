@@ -9,13 +9,13 @@ const express = require('express');
 const router  = express.Router();
 const app = express();
 
+
 app.use(express.json());
 
-module.exports = (db) => {
+module.exports = ({ getUsers }) => {
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
+    getUsers()
+    .then(users => {
         res.json({ users });
       })
       .catch(err => {
