@@ -25,10 +25,6 @@ module.exports = (db) => {
   return router;
 };
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
 
-app.post("/login")
 
 
