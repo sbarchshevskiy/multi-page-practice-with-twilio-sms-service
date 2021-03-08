@@ -10,7 +10,7 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
 
-const usersRoutes = require("./routes/users.js");
+
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -34,11 +34,12 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
-<<<<<<< HEAD
+
 // app.use(usersRoutes);
-=======
-app.use(usersRoutes);
->>>>>>> routes
+
+const usersRoutes = require("./routes/users");
+app.use('/', usersRoutes(db));
+
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -47,30 +48,21 @@ const widgetsRoutes = require("./routes/widgets");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-<<<<<<< HEAD
 
-dbHelpers.getUsers().then((err, res) => {
-  console.log(err, res);
-});
 
-<<<<<<< HEAD
-app.use("/api/users", usersRoutes(dbHelpers));
-app.use("/api/widgets", widgetsRoutes(dbHelpers));
-app.use("/api", usersRoutes(dbHelpers));
-=======
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
-app.use("/api/", usersRoutes(db));
+// dbHelpers.getUsers().then((err, res) => {
+//   console.log(err, res);
+// });
 
->>>>>>> routes
+
 
 
 // Note: mount other resources here, using the same pattern above
 
-=======
+
 // Note: mount other resources here, using the same pattern above
 
->>>>>>> routes
+
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
