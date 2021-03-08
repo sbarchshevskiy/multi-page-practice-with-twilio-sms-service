@@ -9,9 +9,10 @@ const express = require('express');
 const router  = express.Router();
 
 
-
 module.exports = (db) => {
+
   router.get("/", (req, res) => {
+
     db.query(`SELECT * FROM users;`)
       .then(data => {
         const users = data.rows;
@@ -24,13 +25,18 @@ module.exports = (db) => {
       });
   });
 
+  router.get('/login', (req, res) => {
+    console.log('login . get router');
+    res.render('login');
+  });
+
+  router.get('/register', (req, res) => {
+    console.log('register . get router');
+    res.render('login');
+  });
+
+
   return router;
 };
-
-
-router.get('/login', (req, res) => {
-  console.log('login . get router');
-  res.end();
-});
 
 
