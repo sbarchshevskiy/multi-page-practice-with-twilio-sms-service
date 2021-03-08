@@ -1,11 +1,11 @@
 module.exports = db => {
-const getUsers = () => {
-  const query = {
-   text: `SELECT * FROM users;`
-  }
-  return db.query(query).then(res => res.rows)
-}
+  const getUsers = () => {
+    const query = {
+      text: `SELECT * FROM users;`
+    };
+    return db.query(query);
+  };
   return {
     getUsers
-  }
-}
+  };
+};
