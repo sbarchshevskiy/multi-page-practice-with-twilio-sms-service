@@ -6,21 +6,25 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const user  = express.Router();
 
 
-module.exports = ({ getUsers }) => {
-  router.get("/", (req, res) => {
-    getUsers()
-    .then(users => {
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+module.exports = (db) => {
+
+  user.get('/login', (req, res) => {
+    console.log('login . get router');
+
+    res.render('login');
   });
-  return router;
+
+  // router.get('/register', (req, res) => {
+  //   console.log('register . get router');
+  //   res.render('register');
+  // });
+
+
+  return user;
 };
+
+
 
