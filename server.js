@@ -37,7 +37,7 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
-app.use(usersRoutes)
+app.use(usersRoutes);
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -51,9 +51,7 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 
 
-
 // Note: mount other resources here, using the same pattern above
-
 
 // Home page
 // Warning: avoid creating more routes in this file!
@@ -61,7 +59,6 @@ app.use("/api/widgets", widgetsRoutes(db));
 app.get("/", (req, res) => {
   res.render("index");
 });
-
 
 
 app.listen(PORT, () => {
