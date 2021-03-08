@@ -15,7 +15,7 @@ const cart  = express.Router();
 module.exports = (db) => {
 
   user.get('/', (req, res) => {
-    
+
     res.render('login');
   });
 
