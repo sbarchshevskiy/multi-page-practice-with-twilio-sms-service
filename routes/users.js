@@ -28,6 +28,7 @@ module.exports = (db) => {
 
   router.get('/login', (req, res) => {
     console.log('login . get router');
+<<<<<<< HEAD
     res.render('login');
   });
 
@@ -41,3 +42,10 @@ module.exports = (db) => {
 };
 
 
+=======
+    res.end();
+  });
+
+  return router;
+};
+>>>>>>> routes
