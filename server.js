@@ -38,7 +38,11 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+<<<<<<< HEAD
 // app.use(usersRoutes);
+=======
+app.use(usersRoutes);
+>>>>>>> routes
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -52,6 +56,7 @@ dbHelpers.getUsers().then((err, res) => {
   console.log(err, res);
 });
 
+<<<<<<< HEAD
 app.use("/api/users", usersRoutes(dbHelpers));
 app.use("/api/widgets", widgetsRoutes(dbHelpers));
 app.use("/api", usersRoutes(dbHelpers));
@@ -59,6 +64,10 @@ app.use("/api", usersRoutes(dbHelpers));
 
 // Note: mount other resources here, using the same pattern above
 
+=======
+// Note: mount other resources here, using the same pattern above
+
+>>>>>>> routes
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
