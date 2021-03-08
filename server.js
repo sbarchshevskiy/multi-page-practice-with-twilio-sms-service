@@ -41,6 +41,7 @@ const usersRoutes = require("./routes/users");
 app.use('/', usersRoutes(db));
 
 
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const widgetsRoutes = require("./routes/widgets");
@@ -58,8 +59,6 @@ const widgetsRoutes = require("./routes/widgets");
 
 
 // Note: mount other resources here, using the same pattern above
-
-
 // Note: mount other resources here, using the same pattern above
 
 
