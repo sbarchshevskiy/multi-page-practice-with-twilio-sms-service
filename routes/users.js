@@ -37,54 +37,54 @@ module.exports = (db) => {
 };
 
 
-// module.exports = (db) => {
+module.exports = (db) => {
 
-//   menu.get('/', (req, res) => {
-//     res.render('menu'); // to decide on categories whether redirect.
-//   });
+  menu.get('/', (req, res) => {
+    res.render('menu'); // to decide on categories whether redirect.
+  });
 
-//   menu.get('/menu', (req, res) => {
-//     res.render('menu');
-//   });
+  menu.get('/menu', (req, res) => {
+    res.render('menu');
+  });
 
-//   menu.get('/categories/:category_id', (req, res) => {
-//     res.send('categories'); // to decide on categories whether redirect.
-//   });
+  menu.get('/categories/:category_id', (req, res) => {
+    res.send('categories'); // to decide on categories whether redirect.
+  });
 
-//   menu.get('/:menu_item_id', (req, res) => {
-//     res.send('menu_item_id'); // to decide on categories whether redirect.
-//   });
+  menu.get('/:menu_item_id', (req, res) => {
+    res.send('menu_item_id'); // to decide on categories whether redirect.
+  });
 
-//   return menu;
+  return menu;
 
-// };
+};
 
 
-// module.exports = (db) => {
+module.exports = (db) => {
 
-//   cart.get('/', (req, res) => {
-//     res.render('cart');
-//   });
+  cart.get('/', (req, res) => {
+    res.render('cart');
+  });
 
-//   cart.get('/cart', (req, res) => {
-//     res.render('cart');
-//   });
+  cart.get('/cart', (req, res) => {
+    res.render('cart');
+  });
 
-//   cart.post('/add', (req, res) => {
-//     res.send('item added'); // to decide on categories whether redirect.
-//   });
+  cart.post('/add', (req, res) => {
+    res.send('item added'); // to decide on categories whether redirect.
+  });
 
-//   cart.post('/edit', (req, res) => {
-//     res.send('edit item'); // to decide on categories whether redirect.
-//   });
+  cart.post('/edit', (req, res) => {
+    res.send('edit item'); // to decide on categories whether redirect.
+  });
 
-//   cart.post('/reset', (req, res) => {
-//     res.send('items reset'); // to decide on categories whether redirect.
-//   });
+  cart.post('/reset', (req, res) => {
+    res.send('items reset'); // to decide on categories whether redirect.
+  });
 
-//   return cart;
+  return cart;
 
-// };
+};
 
 
 
