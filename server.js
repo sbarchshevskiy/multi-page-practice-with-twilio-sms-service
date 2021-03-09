@@ -40,7 +40,14 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 app.use('/', usersRoutes(db));
 
+const menuRoutes = require("./routes/menus");
+app.use('/menu', menuRoutes(db));
 
+const cartRoutes = require("./routes/cart");
+app.use('/cart', cartRoutes(db));
+
+const thankYouRoutes = require("./routes/thankYou");
+app.use('/thankYou', thankYouRoutes(db));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own

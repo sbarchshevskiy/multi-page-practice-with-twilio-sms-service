@@ -6,18 +6,8 @@
  */
 const express = require('express');
 const user  = express.Router();
-const menu  = express.Router();
-const cart  = express.Router();
-const thankYou = express.Router();
 
 module.exports = (db) => {
-
-  user.get('/', (req, res) => {
-
-
-    res.render('login');
-  });
-
   user.get('/login', (req, res) => {
     res.render('login');
   });
@@ -25,59 +15,20 @@ module.exports = (db) => {
     res.render('register');
   });
   user.post('/login', (req, res) => {
-    res.redirect('menu');
+    res.send('menu');
   });
   user.post('/register', (req, res) => {
-    res.redirect('menu');
+    res.send('menu');
   });
 
   user.get('/admin', (req, res) => {
     res.render('admin');
   });
-
-
   return user;
 };
-/* module.exports = (db) => {
-   menu.get('/', (req, res) => {
-    res.render('menu'); // to decide on categories whether redirect.
-   });
-   menu.get('/menu', (req, res) => {
-     res.render('menu');
-  });
-   menu.get('/categories/:category_id', (req, res) => {
-     res.send('categories'); // to decide on categories whether redirect.
-   });
-  menu.get('/:menu_item_id', (req, res) => {
-     res.send('menu_item_id'); // to decide on categories whether redirect.
-  });
-   return menu;
- };*/
-// module.exports = (db) => {
-//   cart.get('/', (req, res) => {
-//     res.render('cart');
-//   });
-//   cart.get('/cart', (req, res) => {
-//     res.render('cart');
-//   });
-//   cart.post('/add', (req, res) => {
-//     res.send('item added'); // to decide on categories whether redirect.
-//   });
-//   cart.post('/edit', (req, res) => {
-//     res.send('edit item'); // to decide on categories whether redirect.
-//   });
-//   cart.post('/reset', (req, res) => {
-//     res.send('items reset'); // to decide on categories whether redirect.
-//   });
-//   return cart;
-// };
 
 
-// module.exports = (db) => {
 
-//   thankYou.get('/thankyou', (req, res) => {
-//     res.render('thankyou');
-//   });
-//   return user;
-// };
+
+
 
