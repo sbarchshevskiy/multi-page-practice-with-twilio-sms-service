@@ -1,13 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>admin</title>
-</head>
-<body>
-  <p1> Admin page</p1>
 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>EZt8keOut</title>
+</head>
+
+<body>
+  <%- include('partials/_header') %>
+
+
+    <h3><a class="nav-item nav-link" href="/register"> (@dev if not logged in) Register </a></h3>
+
+    <main style="margin: 1em;">
+      <h3>orders</h3>
+      <table class="table">
+
+        <thead>
+          <tr>
+
+            <th scope="col">Edit</th>
+            <th scope="col">Cancel</th>
+            <th scope="col">Confirm</th>
+            <th scope="col">Order</th>
+            <th scope="col">Time to prepare</th>
+            <th scope="col">Completed</th>
+
+
+          </tr>
+        </thead>
+        <div>
+
+        </div>
+
+        <tbody>
+
+          <tr>
+
+            <td>
+              <form method="GET" action="">
+                <button class="btn btn-outline-success">Edit</button>
+              </form>
+            </td>
+            <td>
+              <form method="POST" action="">
+                <button class="btn btn-outline-success">Cancel</button>
+              </form>
+            </td>
+            <td>
+              <form method="POST" action="">
+                <button class="btn btn-outline-success">Confirm</button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </main>
 </body>
+
 </html>
