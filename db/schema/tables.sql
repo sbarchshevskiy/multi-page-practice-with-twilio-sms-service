@@ -18,23 +18,23 @@ other_details varchar(255)
 create table orders(
 id serial primary key not null,
 menu_items_id integer REFERENCES menu_items(id),
-user_id integer REFERENCES users(id),
+user_id integer REFERENCES users(id) ON DELETE CASCADE,
 is_ready boolean,
-accepted boolean
-order_menu_items_id integer REFERENCES order_menu_items(id)
+accepted boolean,
+order_menu_item_id INTEGER REFERENCES order_menu_items(id) ON DELETE CASCADE
 );
 
 create table order_menu_items(
 id serial primary key not null,
 order_item_id integer,
-menu_item_id integer REFERENCES menu_items(id),
+menu_item_id integer REFERENCES menu_items(id) ON DELETE CASCADE,
 quantity integer
 );
 
 
 create table menu_items(
 id serial primary key not null,
-menu_id integer REFERENCES menus(id),
+menu_id integer REFERENCES menus(id) ON DELETE CASCADE,
 item_name varchar(255),
 price integer,
 item_description text,
