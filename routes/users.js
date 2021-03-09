@@ -9,6 +9,7 @@ const user  = express.Router();
 const menu  = express.Router();
 const cart  = express.Router();
 const thankYou = express.Router();
+
 module.exports = (db) => {
 
   user.get('/', (req, res) => {
@@ -31,21 +32,22 @@ module.exports = (db) => {
   });
   return user;
 };
- module.exports = (db) => {
-   menu.get('/', (req, res) => {
-    res.render('menu'); // to decide on categories whether redirect.
-   });
-   menu.get('/menu', (req, res) => {
-     res.render('menu');
-  });
-   menu.get('/categories/:category_id', (req, res) => {
-     res.send('categories'); // to decide on categories whether redirect.
-   });
-  menu.get('/:menu_item_id', (req, res) => {
-     res.send('menu_item_id'); // to decide on categories whether redirect.
-  });
-   return menu;
- };
+
+// module.exports = (db) => {
+//   menu.get('/', (req, res) => {
+//     res.render('menu'); // to decide on categories whether redirect.
+//   });
+//   menu.get('/menu', (req, res) => {
+//     res.render('menu');
+//   });
+//   menu.get('/categories/:category_id', (req, res) => {
+//     res.send('categories'); // to decide on categories whether redirect.
+//   });
+//   menu.get('/:menu_item_id', (req, res) => {
+//     res.send('menu_item_id'); // to decide on categories whether redirect.
+//   });
+//   return menu;
+// };
 // module.exports = (db) => {
 //   cart.get('/', (req, res) => {
 //     res.render('cart');
