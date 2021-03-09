@@ -8,6 +8,7 @@ const express = require('express');
 const user  = express.Router();
 const menu  = express.Router();
 const cart  = express.Router();
+const bcrypt = require('bcrypt');
 
 module.exports = (db) => {
 
@@ -15,22 +16,79 @@ module.exports = (db) => {
   //   res.render('login');
   // });
 
+  const getUsersEmail = function(email) {
+    return db.query(`
+      SELECT *
+      FROM users
+      WHERE email = $1;
+    `, [email])
+      .then(res => res.rows[0]);
+  };
+
+  const authUserLogin = function(email, password) {
+    return db.getUsersEmail(email)
+      .then(user => {
+        if (bcrypt.compareSync(password, user.password)) {
+          return user;
+        }
+        return null;
+      });
+  };
+
   user.get('/login', (req, res) => {
     res.render('login');
 
     user.post('/login', (req, res) => {
-      res.redirect('menu');
-    });
+      const {
+        email,
+        password
+      } = req.body;
+      
+      authUserLogin(email, password)
+        .then(user => {
+          if (!user) {
+            res.send({
+              error: "error logging in"
+            });
+            return;
+          }
+          req.session.userId = user.id;
+          res.send({user: {
+            name: user.name,
+            email: user.email,
+            id: user.id
 
+          }});
+          res.redirect('menu');
+
+        })
+        .catch(err => res.send(err));
+
+    });
   });
+
   user.get('/register', (req, res) => {
     res.render('register');
   });
+
   user.post('/register', (req, res) => {
-    res.redirect('menu');
+    const user = req.body;
+    user.password = bcrypt.hashSync(user.password, 10);
+    db.addUser(user)
+      .then(user => {
+        if (!user) {
+          res.send(
+            {
+              error: "error registering"
+            });
+          return;
+        }
+        req.session.userId = user.id;
+        res.send('confirm');
+      })
+      .catch(err => res.send(err));
+
   });
-
-
 
   user.get('/admin', (req, res) => {
     res.render('admin');
