@@ -9,6 +9,7 @@ const user  = express.Router();
 const menu  = express.Router();
 const cart  = express.Router();
 const thankYou = express.Router();
+
 module.exports = (db) => {
 
   user.get('/', (req, res) => {
@@ -29,6 +30,12 @@ module.exports = (db) => {
   user.post('/register', (req, res) => {
     res.redirect('menu');
   });
+
+  user.get('/admin', (req, res) => {
+    res.render('admin');
+  });
+
+
   return user;
 };
 /* module.exports = (db) => {
