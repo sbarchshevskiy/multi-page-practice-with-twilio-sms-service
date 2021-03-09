@@ -1,0 +1,76 @@
+
+MENUS:
+create table menus(
+id serial primary key not null,
+menu_name varchar(255),
+menu_description varchar(255),
+other_details varchar(255)
+);
+CREATE TABLE
+
+ORDER_MENU_ITEMS:                 ^
+create table order_menu_items(
+order_id integer,
+menu_item_id integer,
+order_menu_item_quantity integer);
+CREATE TABLE
+
+ORDERS:
+create table orders(
+id serial primary key not null,
+menu_items_id integer,
+user_id integer,
+is_ready boolean);
+CREATE TABLE
+
+MENU_ITEMS:
+create table menu_items(
+id serial primary key not null,
+menu_id integer,
+menu_item_name varchar(255),
+menu_item_price integer,
+menu_item_description text);
+CREATE TABLE
+
+                                                      ^
+insert into menus(menu_name, menu_description, other_details)
+values('specials', 'burgers', 'fat food');
+INSERT 0 1
+
+insert into menus(menu_name, menu_description, other_details)
+values('specials', 'healthy','vegetarian');
+INSERT 0 1
+
+insert into menus(menu_name, menu_description, other_details)
+values('specials', 'soft','apetizers');
+INSERT 0 1
+
+insert into menu_items
+(menu_id, menu_item_name, menu_item_price, menu_item_description)
+values(1111, 'specials', 10, 'super tasty');
+INSERT 0 1
+
+insert into menu_items
+(menu_id, menu_item_name, menu_item_price, menu_item_description)
+values(2222, 'specials', 13, 'delicious ravioly');
+INSERT 0 1
+
+insert into menu_items
+(menu_id, menu_item_name, menu_item_price, menu_item_description)
+values(3333, 'specials', 16, 'awesome osso-bucco');
+INSERT 0 1
+
+insert into menu_items
+(menu_id, menu_item_name, menu_item_price, menu_item_description)
+values(4444, 'specials', 11, 'salmon tartare');
+INSERT 0 1
+
+//add email column to users
+alter table users
+add email varchar(255);
+ALTER TABLE
+
+
+
+
+
