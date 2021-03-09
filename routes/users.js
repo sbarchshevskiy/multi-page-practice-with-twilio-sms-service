@@ -12,8 +12,6 @@ const thankYou = express.Router();
 module.exports = (db) => {
 
   user.get('/', (req, res) => {
-
-
     res.render('login');
   });
 
@@ -32,10 +30,8 @@ module.exports = (db) => {
   return user;
 };
 
- module.exports = (db) => {
- menu.get('/', (req, res) => {
- res.render('menu'); // to decide on categories whether redirect.
-   });
+ /*module.exports = (db) => {
+
   menu.get('/menu', (req, res) => {
     res.render('menu');
   });
@@ -73,5 +69,5 @@ module.exports = (db) => {
 //     res.render('thankyou');
 //   });
 //   return user;
-// };
+// };*/
 
