@@ -71,13 +71,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-<<<<<<< HEAD
 // app.get("/login", (req, res) => {
 //   res.render("login");
 // });
 
-=======
->>>>>>> master
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
