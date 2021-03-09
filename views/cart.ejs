@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>EZt8keOut</title>
+</head>
+
+<body>
+  <%- include('partials/_header') %>
+
+    <h3><a class="nav-item nav-link" href="/register"> (@dev IF NOT LOGGED IN) Register </a></h3>
+
+    <main style="margin: 1em;">
+      <h3>your orders</h3>
+      <table class="table">
+
+        <thead>
+          <tr>
+
+            <th scope="col">Edit</th>
+            <th scope="col">Cancel</th>
+            <th scope="col">Order Details</th>
+            <th scope="col">Ready for pickup at</th>
+            <th scope="col">Completed</th>
+
+
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+
+            <td>
+              <form method="GET" action="">
+                <button class="btn btn-outline-success">Edit</button>
+              </form>
+            </td>
+            <td>
+              <form method="POST" action="">
+                <button class="btn btn-outline-success">Cancel</button>
+              </form>
+            </td>
+            <td>
+              <form method="POST" action="">
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </main>
+
+</body>
+
+</html>
