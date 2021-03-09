@@ -10,6 +10,11 @@ const user  = express.Router();
 module.exports = (db) => {
   user.get('/login', (req, res) => {
     res.render('login');
+
+    user.post('/login', (req, res) => {
+      res.redirect('menu');
+    });
+
   });
   user.get('/register', (req, res) => {
     res.render('register');
@@ -21,11 +26,14 @@ module.exports = (db) => {
     res.send('menu');
   });
 
+
+
   user.get('/admin', (req, res) => {
     res.render('admin');
   });
   return user;
 };
+
 
 
 
