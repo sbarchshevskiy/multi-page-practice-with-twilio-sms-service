@@ -16,6 +16,15 @@ module.exports = (db) => {
   //   res.render('login');
   // });
 
+  const newUser =  function(user) {
+    console.log('calling new user func');
+    return db.query(`
+    INSERT INTO users(phone_number, email, password, is_client)
+    VALUES($1, $2, $3, $4)
+    RETURNING *;
+    `, [user.phone, user.email, user.password, true]).then(res => res.rows[0]);
+  };
+
   const findUserId = function(userId) {
     return db.query(`
     SELECT *
@@ -99,7 +108,6 @@ module.exports = (db) => {
     } = req.body;
 
 
-
     authUserLogin(email, password)
       .then(user => {
         if (!user) {
@@ -119,15 +127,15 @@ module.exports = (db) => {
               isClient: user.is_client
             }
           });
+
         //is_client should have been is_manager
         //therefore loadManagerProfie is by default true
         // needs to be evaluated to false to give access
         // to manager
-
         if (!loadManagerProfile) {
-          res.redirect('menu');
+          res.redirect('/menu');
         } else {
-          res.redirect('admin');
+          res.redirect('/admin');
         }
       })
       .catch(err => res.send(err));
@@ -139,30 +147,38 @@ module.exports = (db) => {
   });
 
   user.post('/register', (req, res) => {
+    console.log('test post on top of func');
+    console.log('req body', req.body);
+
+    console.log('db ',db);
+
     const user = req.body;
     user.password = bcrypt.hashSync(user.password, 10);
-    db.addUser(user)
+    console.log('req body1', req.body);
+    newUser(user)
       .then(user => {
+        console.log('test post route');
         if (!user) {
           res.send(
             {
               error: "error registering"
             });
+
           return;
         }
         req.session.userId = user.id;
-        res.send('confirm');
+        // res.send('confirm');
+        res.redirect('/menu');
       })
-      .catch(err => res.send(err));
+      .catch(err => {
+        console.log('test catch');
+        res.status(500).json(err);
+      });
 
   });
-
-
   // user.get('/thankyou', (req, res) => {
   //   res.render('thankyou');
   // });
-
-
   return user;
 };
 
@@ -186,7 +202,6 @@ module.exports = (db) => {
 //   });
 
 //   return menu;
-
 // };
 
 
