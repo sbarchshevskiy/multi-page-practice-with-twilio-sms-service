@@ -30,6 +30,12 @@ module.exports = (db) => {
   user.post('/register', (req, res) => {
     res.redirect('menu');
   });
+
+  user.get('/admin', (req, res) => {
+    res.render('admin');
+  });
+
+
   return user;
 };
 
