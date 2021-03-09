@@ -31,7 +31,7 @@ module.exports = (db) => {
   });
   return user;
 };
- module.exports = (db) => {
+/* module.exports = (db) => {
    menu.get('/', (req, res) => {
     res.render('menu'); // to decide on categories whether redirect.
    });
@@ -45,7 +45,7 @@ module.exports = (db) => {
      res.send('menu_item_id'); // to decide on categories whether redirect.
   });
    return menu;
- };
+ };*/
 // module.exports = (db) => {
 //   cart.get('/', (req, res) => {
 //     res.render('cart');
