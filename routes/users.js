@@ -8,6 +8,7 @@ const express = require('express');
 const user  = express.Router();
 const menu  = express.Router();
 const cart  = express.Router();
+const thankYou = express.Router();
 module.exports = (db) => {
 
   user.get('/', (req, res) => {
@@ -63,3 +64,13 @@ module.exports = (db) => {
 //   });
 //   return cart;
 // };
+
+
+// module.exports = (db) => {
+
+//   thankYou.get('/thankyou', (req, res) => {
+//     res.render('thankyou');
+//   });
+//   return user;
+// };
+
