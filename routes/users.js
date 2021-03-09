@@ -16,6 +16,24 @@ module.exports = (db) => {
   //   res.render('login');
   // });
 
+  const findUserId = function(userId) {
+    return db.query(`
+    SELECT *
+    FROM users
+    WHERE id = $1;
+    `, [userId])
+      .then(res => res.rows[0]);
+  };
+
+  const loadManagerProfile = function(manager) {
+    return db.query(`
+    SELECT *
+    FROM users
+    WHERE is_client = $1;
+    `, [manager])
+      .then(res => res.rows[0]);
+  };
+
   const getUsersEmail = function(email) {
     return db.query(`
       SELECT *
@@ -36,35 +54,84 @@ module.exports = (db) => {
   };
 
   user.get('/login', (req, res) => {
-    res.render('login');
+    const userId = req.session.userId;
+    if (!userId) {
+      res.send(
+        {
+          message: "please login"
+        }
+      );
+      return;
+    }
 
-    user.post('/login', (req, res) => {
-      const {
-        email,
-        password
-      } = req.body;
-      
-      authUserLogin(email, password)
-        .then(user => {
-          if (!user) {
-            res.send({
-              error: "error logging in"
-            });
-            return;
-          }
-          req.session.userId = user.id;
-          res.send({user: {
-            name: user.name,
+    db.findUserId(userId)
+      .then(user => {
+        if (!user) {
+          res.send(
+            {
+              error: "not a registered user"
+            }
+          );
+          return;
+        }
+        res.send(
+          {
+            user:
+          {
+            phoneNumber: user.phone_number,
             email: user.email,
-            id: user.id
+            id: userId,
+            isClient: user.is_client
+          }
+          })
+          .catch(err => res.send(err));
+      });
 
-          }});
+    res.render('login');
+  });
+
+  user.post('/login', (req, res) => {
+    const {
+      email,
+      password,
+      phoneNumber,
+      isClient
+    } = req.body;
+
+
+
+    authUserLogin(email, password)
+      .then(user => {
+        if (!user) {
+          res.send({
+            error: "error logging in"
+          });
+          return;
+        }
+        req.session.userId = user.id;
+        res.send(
+          {
+            user:
+            {
+              phoneNumber: user.phone_number,
+              email: user.email,
+              // id: userId,
+              isClient: user.is_client
+            }
+          });
+        //is_client should have been is_manager
+        //therefore loadManagerProfie is by default true
+        // needs to be evaluated to false to give access
+        // to manager
+
+        if (!loadManagerProfile) {
           res.redirect('menu');
+        } else {
+          res.redirect('admin');
+        }
+      })
+      .catch(err => res.send(err));
 
-        })
-        .catch(err => res.send(err));
-
-    });
   });
 
   user.get('/register', (req, res) => {
@@ -90,9 +157,6 @@ module.exports = (db) => {
 
   });
 
-  user.get('/admin', (req, res) => {
-    res.render('admin');
-  });
 
   // user.get('/thankyou', (req, res) => {
   //   res.render('thankyou');
