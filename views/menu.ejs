@@ -20,17 +20,14 @@
           <th scope="col">Order</th>
           <th scope="col">Time to prepare </th>
           <th scope="col">Order Status</th>
-
-
-
         </tr>
       </thead>
-      <div>
-      </div>
-      <tbody>
-        <tr>
 
+      <tbody>
+        <% for(let item in items) { %>
+        <tr>
           <td>
+            <%= items[item].id%>
           </td>
           <td>
 
@@ -44,6 +41,8 @@
             </form>
           </td>
         </tr>
+
+        <% } %>
       </tbody>
     </table>
 

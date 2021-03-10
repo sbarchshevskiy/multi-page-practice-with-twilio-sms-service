@@ -11,7 +11,8 @@ module.exports = (db) => {
       JOIN orders ON users.id = user_id
       JOIN order_menu_items ON orders.id = order_id
       JOIN menu_items ON menu_items.id = menu_item_id
-      GROUP BY users.name,users.phone_number,orders.id ,order_menu_items.quantity, menu_items.name ,total_price;
+      GROUP BY users.name,users.phone_number,orders.id ,order_menu_items.quantity, menu_items.name ,total_price
+      ORDER BY orders.id;
     `)
       .then(res => res.rows);
   };
@@ -20,9 +21,25 @@ module.exports = (db) => {
 
     fetchAllOrders()
     .then(orders=>{
-      const templateVars = {
-        orders
+      const orderObject = {};
+      for (const order of orders) {
+        orderObject[order.id] = {
+          id: order.id,
+          name: order.name,
+          phone_number : order.phone_number,
+          quantity: order.quantity,
+          items:[],
+          total_price: order.total_price
+        }
+      } for (const order of orders){
+        orderObject[order.id].items.push(order.item)
       }
+
+
+      const templateVars = {
+        orders : Object.values(orderObject)
+      }
+      console.log(orders)
       res.render('admin',templateVars);
     })
     .catch(err => {
