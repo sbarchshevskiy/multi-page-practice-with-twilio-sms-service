@@ -42,8 +42,8 @@ app.use(express.static("public"));
 
 // app.use(usersRoutes);
 
-const usersRoutes = require("./routes/users");
-app.use('/', usersRoutes(db));
+// const usersRoutes = require("./routes/users");
+// app.use('/', usersRoutes(db));
 
 const menuRoutes = require("./routes/menus");
 app.use('/menu', menuRoutes(db));
