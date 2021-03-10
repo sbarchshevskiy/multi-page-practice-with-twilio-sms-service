@@ -6,8 +6,7 @@
  */
 const express = require('express');
 const user  = express.Router();
-const menu  = express.Router();
-const cart  = express.Router();
+const bcrypt = require('bcrypt');
 
 module.exports = (db) => {
 
@@ -15,83 +14,74 @@ module.exports = (db) => {
   //   res.render('login');
   // });
 
+  const newUser =  function(user) {
+    console.log('calling new user func');
+    return db.query(`
+    INSERT INTO users(phone_number, email, password, is_client)
+    VALUES($1, $2, $3, $4)
+    RETURNING *;
+    `, [user.phone, user.email, user.password, true]).then(res => res.rows[0]);
+  };
+
+  const findUserId = function(userId) {
+    return db.query(`
+    SELECT *
+    FROM users
+    WHERE id = $1;
+    `, [userId])
+      .then(res => res.rows[0]);
+  };
+
+  const loadManagerProfile = function(manager) {
+    return db.query(`
+    SELECT *
+    FROM users
+    WHERE is_client = $1;
+    `, [manager])
+      .then(res => res.rows[0]);
+  };
+
+  const getUsersEmail = function(email) {
+    return db.query(`
+      SELECT *
+      FROM users
+      WHERE email = $1;
+    `, [email])
+      .then(res => res.rows[0]);
+  };
+
+  const authUserLogin = function(email, password) {
+    return db.getUsersEmail(email)
+      .then(user => {
+        if (bcrypt.compareSync(password, user.password)) {
+          return user;
+        }
+        return null;
+      });
+  };
+
   user.get('/login', (req, res) => {
     res.render('login');
-
-    user.post('/login', (req, res) => {
-      res.redirect('menu');
-    });
-
   });
+
+  user.post('/login', (req, res) => {
+    res.redirect('/');
+  });
+
+
+
   user.get('/register', (req, res) => {
     res.render('register');
   });
-  user.post('/register', (req, res) => {
-    res.redirect('menu');
-  });
 
-
-
-  user.get('/admin', (req, res) => {
-    res.render('admin');
-  });
-
-  // user.get('/thankyou', (req, res) => {
-  //   res.render('thankyou');
-  // });
 
 
   return user;
 };
 
 
-// module.exports = (db) => {
-
-// menu.get('/', (req, res) => {
-//   res.render('menu'); // to decide on categories whether redirect.
-// });
-
-//   menu.get('/menu', (req, res) => {
-//     res.render('menu');
-//   });
-
-//   menu.get('/categories/:category_id', (req, res) => {
-//     res.send('categories'); // to decide on categories whether redirect.
-//   });
-
-//   menu.get('/:menu_item_id', (req, res) => {
-//     res.send('menu_item_id'); // to decide on categories whether redirect.
-//   });
-
-//   return menu;
-
-// };
 
 
-// module.exports = (db) => {
 
-// cart.get('/', (req, res) => {
-//   res.render('cart');
-// });
-
-//   cart.get('/cart', (req, res) => {
-//     res.render('cart');
-//   });
-
-//   cart.post('/add', (req, res) => {
-//     res.send('item added'); // to decide on categories whether redirect.
-//   });
-
-//   cart.post('/edit', (req, res) => {
-//     res.send('edit item'); // to decide on categories whether redirect.
-//   });
-
-//   cart.post('/reset', (req, res) => {
-//     res.send('items reset'); // to decide on categories whether redirect.
-//   });
-
-//   return cart;
-
-// };
 
 

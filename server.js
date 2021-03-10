@@ -9,14 +9,19 @@ const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
+const cookieSession = require('cookie-session');
 
-
+app.use(cookieSession({
+  name: 'session',
+  keys: ['secret']
+}));
 
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
+console.log('db connection test', dbParams);
 const db = new Pool(dbParams);
-db.connect();
+db.connect(err => console.log('connected', err));
 const dbHelpers = require('./helpers/userHelpers')(db);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -40,7 +45,14 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 app.use('/', usersRoutes(db));
 
+const menuRoutes = require("./routes/menus");
+app.use('/menu', menuRoutes(db));
 
+const cartRoutes = require("./routes/cart");
+app.use('/cart', cartRoutes(db));
+
+const thankYouRoutes = require("./routes/thankYou");
+app.use('/thankYou', thankYouRoutes(db));
 
 app.get("/", (req, res) => {
   res.render("menu");
