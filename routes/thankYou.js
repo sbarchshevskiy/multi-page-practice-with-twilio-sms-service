@@ -13,7 +13,7 @@ const fetchBiggestCookingTime = () => {
  WHERE orders.user_id = $1
  GROUP BY order_menu_items.order_id
   ORDER BY order_menu_items.order_id DESC
-  ;`, [1])
+  ;`, [2])
   .then(res => res.rows[0].max);
 };
 
