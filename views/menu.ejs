@@ -16,53 +16,34 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Food item</th>
-            <th scope="col">Description</th>
-            <th scope="col">Cooking Time</th>
             <th scope="col">Photo</th>
+            <th scope="col">Food Item</th>
+            <th scope="col">Cooking Time</th>
+            <th scope="col">Description</th>
             <th scope="col">Price</th>
 
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">Burger</th>
-            <td>Delicious Burger</td>
-            <td>20 Minutes</td>
-            <td>Photo</td>
-            <td>$12</td>
-            <td>  <form method="POST" action="/cart/add">
-              <button class="btn btn-outline-danger">Add To Cart</button> </td>
-          </tr>
-          <tr>
-            <th scope="row">Wrap</th>
-            <td>Ceaser Wrap</td>
-            <td>12 Minutes</td>
-            <td>Photo</td>
-            <td>$15</td>
-            <td>  <form method="POST" action="/cart/add">
-              <button class="btn btn-outline-danger">Add To Cart</button> </td>
-          </tr>
-          <tr>
-            <th scope="row">Fries</th>
-            <td>Salted Fries</td>
-            <td>5 Minutes</td>
-            <td>Photo</td>
-            <td>$7 </td>
 
+          <% for (let item in items) { %>
+
+          <tr>
+            <th scope="row"> <%= items[item].thumbnail %> </th>
+
+            <td> <%= items[item].name %> </td>
+            <td> <%= items[item].cooking_time %> </td>
+            <td><%= items[item].description %></td>
+            <td>$<%= items[item].price %></td>
             <td>  <form method="POST" action="/cart/add">
               <button class="btn btn-outline-danger">Add To Cart</button> </td>
-
           </tr>
+          <% } %>
+
         </tbody>
       </table>
 
-
-
     </table>
-
-
-
 
   </main>
 
