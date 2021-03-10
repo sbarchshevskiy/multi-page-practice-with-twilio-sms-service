@@ -18,16 +18,21 @@
     <div class="card-body">
 
 
-        <h3>Enter Credentials</h3>
+        <div class="row">
+          <div class="col-5">
+            <form class="form-group" method="GET" action="/menu">
+              <button type="submit" class="btn btn-primary">Clients</button>
+            </form>
+          </div>
 
-        <form class="form-group" method="GET" action="/menu">
-          <button type="submit" class="btn btn-primary">Clients</button>
-        </form>
+          <div class="col-7">
+            <form class="form-group-admin" method="POST" action="/admin">
+              <button type="submit" class="btn btn-primary">Partners</button>
+            </form>
 
+          </div>
+        </div>
 
-        <form class="form-group" method="POST" action="/admin">
-            <button type="submit" class="btn btn-primary">Partners</button>
-          </form>
 
 
 

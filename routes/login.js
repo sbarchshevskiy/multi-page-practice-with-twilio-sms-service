@@ -4,14 +4,23 @@ const express = require('express');
 const router  = express.Router();
 
 
-module.exports = function(router, db) {
+module.exports = function(db) {
 
-  const getTypeOfUser = function(manager) {
+  const getTypeOfUser = function(isManager) {
     return db.query(`
     SELECT *
     FROM users
     WHERE is_owner = $1;
-    `, [manager])
+    `, [isManager])
+      .then(res => res.rows[0]);
+  };
+
+  const getUsersName = function(userId, user_name) {
+    return db.query(`
+    SELECT *
+    FROM users
+    WHERE id = 1$ AND name = $2;
+    `, [userId, user_name])
       .then(res => res.rows[0]);
   };
 
@@ -25,17 +34,26 @@ module.exports = function(router, db) {
       });
   };
 
-  router.get('/login', (req, res) => {
 
-    // const {userId, isManager} = req.body;
+  user.get('/login', (req, res) => {
 
-    if (authenticateUser) {
-      res.render('/admin');
-    } else {
-      res.render('/menu');
-    }
+
+    $(document).ready(function() {
+      $('.form-group-admin').on('sumbit', (event) => {
+        event.preventDefault();
+
+        const managerProfile = authenticateUser(req.params.id);
+
+        if (managerProfile) {
+          res.render('/admin');
+        } else {
+          res.render('/menu');
+        }
+      });
+
+    });
+
   });
-
 
 };
 
