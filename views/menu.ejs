@@ -12,38 +12,57 @@
 <body>
   <main style="margin: 1em;">
     <h3>Menu 📔</h3>
-    <table class="table">
-      <tbody>
-        <tr>
-          <td>
-            <div class="list-items">
-            <ul>
-              <br>
-              <li>
-                Burgers
-              <form method="POST" action="/cart/add">
+    <table class="table table-striped">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Food item</th>
+            <th scope="col">Description</th>
+            <th scope="col">Cooking Time</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Price</th>
 
-              </li>
-              <br>
-              <li>
-                Fries
-              </li>
-              <br>
-              <li>
-                Beverages
-              </li>
-            </ul>
-            <form method="POST" action="/cart/add">
-              <button class="btn btn-outline-danger">Add To Cart</button>
-          </div>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Burger</th>
+            <td>Delicious Burger</td>
+            <td>20 Minutes</td>
+            <td>Photo</td>
+            <td>$12</td>
+            <td>  <form method="POST" action="/cart/add">
+              <button class="btn btn-outline-danger">Add To Cart</button> </td>
+          </tr>
+          <tr>
+            <th scope="row">Wrap</th>
+            <td>Ceaser Wrap</td>
+            <td>12 Minutes</td>
+            <td>Photo</td>
+            <td>$15</td>
+            <td>  <form method="POST" action="/cart/add">
+              <button class="btn btn-outline-danger">Add To Cart</button> </td>
+          </tr>
+          <tr>
+            <th scope="row">Fries</th>
+            <td>Salted Fries</td>
+            <td>5 Minutes</td>
+            <td>Photo</td>
+            <td>$7 </td>
+
+            <td>  <form method="POST" action="/cart/add">
+              <button class="btn btn-outline-danger">Add To Cart</button> </td>
+
+          </tr>
+        </tbody>
+      </table>
 
 
 
-            </tr>
-          </td>
-        </tr>
-      </tbody>
     </table>
+
+
+
 
   </main>
 
