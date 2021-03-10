@@ -51,11 +51,14 @@ app.use('/menu', menuRoutes(db));
 const cartRoutes = require("./routes/cart");
 app.use('/cart', cartRoutes(db));
 
+const loginRoutes = require("./routes/login");
+app.use('/login', loginRoutes(db));
+
 const thankYouRoutes = require("./routes/thankYou");
 app.use('/thankYou', thankYouRoutes(db));
 
 app.get("/", (req, res) => {
-  res.render("menu");
+  res.redirect('/login');
 });
 
 
