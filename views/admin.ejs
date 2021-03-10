@@ -51,9 +51,9 @@
               <p><%= orders[order].total_price %></p>
             </td>
           <td>
-            <form method="POST" action="">
-              <button class="btn btn-outline-success">Confirm</button>
-              <form method="POST" action="">
+            <form method="POST" action="/admin/<%= orders[order].id%>/accept">
+              <button class="btn btn-outline-success">Confirm </button>
+              <form method="POST" action="/admin/<%= orders[order].id%>/cancel">
                 <button class="btn btn-outline-danger">Cancel</button>
                 </form>
           </td>

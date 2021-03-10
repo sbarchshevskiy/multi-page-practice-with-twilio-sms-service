@@ -48,5 +48,17 @@ module.exports = (db) => {
     })
    });
 
+
+   admin.post('/:order_id/accept', (req, res) => {
+     res.redirect('/admin');
+
+  });
+
+  admin.post('/:order_id/cancel', (req, res) => {
+    res.redirect('/admin');
+
+
+  });
+
    return admin;
  };
