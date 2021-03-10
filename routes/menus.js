@@ -30,7 +30,10 @@ module.exports = (db) => {
       }
       res.render('menu',templateVars);
     })
-
+    .catch(err => {
+      console.log(err)
+      res.render("menu")
+    })
    });
 
    menu.get('/categories/:category_id', (req, res) => {
@@ -44,7 +47,10 @@ module.exports = (db) => {
       }
       res.send('menu',templateVars);
     })
-
+    .catch(err => {
+      console.log(err)
+      res.render("menu")
+    })
   });
    return menu;
  };
