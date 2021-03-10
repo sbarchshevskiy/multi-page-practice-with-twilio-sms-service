@@ -54,10 +54,12 @@ app.use('/cart', cartRoutes(db));
 const thankYouRoutes = require("./routes/thankYou");
 app.use('/thankYou', thankYouRoutes(db));
 
+const adminRoutes = require("./routes/admin")
+app.use('/admin',adminRoutes(db))
+
 app.get("/", (req, res) => {
   res.render("menu");
 });
-
 
 
 app.listen(PORT, () => {
