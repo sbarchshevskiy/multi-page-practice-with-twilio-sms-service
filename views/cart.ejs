@@ -1,45 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <meta charset="utf-8">
-  <%- include('partials/_header.ejs') %>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <title>EZt8keOut</title>
+<head>
+<meta charset="utf-8">
+<%- include('partials/_header.ejs') %>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+  integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<title>EZt8keOut</title>
+<link rel="stylesheet" href="/styles/cart.styles.css" type="text/css" />
 </head>
 
 <body>
+
     <main style="margin: 1em;">
-      <h3>C🛒rt</h3>
-      <table class="table">
-        <thead>
+      <h3>C🛒rt for order #<%= cart[0].order_id %></h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">Food Item</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Item Price</th>
+              <th scope="col"> Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let item of cart) { %>
+            <tr>
+              <th scope="row">
+                <div class='image-wrapper'>
+                  <img src= <%= item.thumbnail %> class="img-thumbnail" alt="burger">
+                </div>
+              </th>
+              <td> <%= item.item %> </td>
+              <td> <%= item.quantity%> </td>
+              <td> $<%= item.price_per_item %> </td>
+              <td> $<%= item.total_price %> </td>
 
-        </thead>
+            </tr>
+            <% } %>
 
-        <tbody>
+            <tr>
+              <th scope="row">
+             </th>
+              <td>  </td>
+              <td> </td>
+              <td> </td>
+              <td> TOTAL: $<%= total %></td>
 
-          <tr>
-
-            <td>
-              <form method="GET" action="">
-                <button class="btn btn-outline-success">Edit</button>
-              </form>
-            </td>
-            <td>
-              <form method="POST" action="cart/submit">
-                <button class="btn btn-outline-success">Submit</button>
-              </form>
-            </td>
-            <td>
-              <form method="POST" action="">
-              </form>
-            </td>
-          </tr>
-        </tbody>
+            </tr>
+          </tbody>
       </table>
+    <div class="submit-button">
 
+      <form method="POST" action="cart/submit">
+        <button class="btn btn-outline-success">Submit</button>
+      </form>
+    </div>
     </main>
 
 </body>
