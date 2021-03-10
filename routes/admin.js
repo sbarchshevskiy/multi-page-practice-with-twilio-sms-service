@@ -2,27 +2,59 @@ const express = require('express');
 const admin  = express.Router();
 
 
+require('dotenv').config();
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+console.log(accountSid);
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client =  require('twilio')(accountSid, authToken);
+
+
+
+
 module.exports = (db) => {
 
-  const orderIsReady = function(status, id) {
+  const orderConfirmed = function(status, id) {
     return db.query(
       `UPDATE orders
-      SET is_ready = $1
+      SET is_accepted = $1
       where id = $2;
     `, [status, id]);
   };
 
-  const orderIsAccepted = function(status, id) {
-    return db.query(
-      `UPDATE orders
-      SET accepted = $1
-      where id = $2;
-    `, [status, id]);
+  // const orderDeclined = function(status, id) {
+  //   return db.query(
+  //     `UPDATE orders
+  //     SET is_accepted = $1
+  //     where id = $2;
+  //   `, [status, id]);
+  // };
+
+  // const orderReady = function(status, id) {
+  //   return db.query(
+  //     `UPDATE orders
+  //     SET is_ready = $1
+  //     where id = $2;
+  //   `, [status, id]);
+  // };
+
+
+  const sendSms = function(clientsNumber, message) {
+    client.messages.create({
+      // dummie phone number: +19292948737
+      // the number of free texts is limited, use the feature wisely
+      body: message,
+      from: '+19292948737',
+      to: clientsNumber
+    })
+      .then(message => console.log(message))
+      .catch((err) => console.log(err));
+
   };
+
 
   const fetchAllOrders = function() {
     return db.query(`
-      SELECT users.name, users.phone_number, orders.id, orders.is_ready, users.accepted, order_menu_items.quantity, menu_items.name as item, (menu_items.price * order_menu_items.quantity) as total_price
+      SELECT users.name, users.phone_number, orders.id, order_menu_items.quantity, menu_items.name as item, (menu_items.price * order_menu_items.quantity) as total_price, orders.is_ready, orders.is_accepted
       FROM users
       JOIN orders ON users.id = user_id
       JOIN order_menu_items ON orders.id = order_id
@@ -34,7 +66,7 @@ module.exports = (db) => {
   };
 
   admin.get('/', (req, res) => {
-
+    // global DB object
     let globalObject;
 
     fetchAllOrders()
@@ -49,7 +81,7 @@ module.exports = (db) => {
             items:[],
             totalPrice: order.total_price,
             isReady: order.is_ready,
-            orderAccepted : order.accepted
+            orderAccepted : order.is_accepted
           };
         } for (const order of orders) {
           orderObject[order.id].items.push(order.item);
@@ -57,11 +89,13 @@ module.exports = (db) => {
 
         globalObject = orderObject;
         console.log('global', globalObject);
+        console.log('ring rring ', req.params.phone_number);
+
 
         const templateVars = {
           orders : Object.values(orderObject)
         };
-        console.log('obj.val',Object.values(orderObject));
+        console.log('obj.val',Object.values(orderObject).phoneNumber);
         res.render('admin',templateVars);
       })
       .catch(err => {
@@ -70,26 +104,29 @@ module.exports = (db) => {
       });
 
 
-    const modifyOrder = function(obj) {
-      let orderStatus = '';
+    const getPhone = function(obj, id) {
+      let phoneNumber = '';
       for (let item in obj) {
-        orderStatus = obj[item].is_ready;
+        phoneNumber = obj[item].phone_number[id];
       }
-      console.log('order stt',orderStatus);
-      return orderStatus;
+      console.log('order stt',phoneNumber);
+      return phoneNumber;
     };
-    console.log(modifyOrder('test global',globalObject));
-
+    console.log(getPhone('test global db obj', globalObject));
 
   });
 
 
-  admin.post('/:order_id/ready', (req, res) => {
 
+
+  admin.post('/:order_id/accept', (req, res) => {
+
+    let clientPhoneNumber = req.params.phoneNumber;
     let orderId = req.params.order_id;
-    orderIsReady(true, orderId)
+    console.log('ring rring ', clientPhoneNumber);
+    orderConfirmed(true, orderId)
       .then(order => {
-        console.log(`${order}, order, ${orderId} is ready!`);
+        console.log(`${order}, order, ${orderId} has been confirmed!`);
         res.redirect('/admin');
       })
       .catch(err => {
@@ -98,33 +135,34 @@ module.exports = (db) => {
       });
   });
 
-  admin.post('/:order_id/accpeted', (req, res) => {
+  // admin.post('/:order_id/cancel', (req, res) => {
 
-    let orderId = req.params.order_id;
-    orderIsAccepted(true, orderId)
-      .then(order => {
-        console.log(`${order}, order, ${orderId} is accpeted!`);
-        res.redirect('/admin');
-      })
-      .catch(err => {
-        console.log(`error ${err}`);
-        res.redirect('/admin');
-      });
-  });
+  //   let orderId = req.params.order_id;
+  //   orderDeclined(false, orderId)
+  //     .then(order => {
+  //       console.log(`${order}, order, ${orderId} has been declined!`);
+  //       res.redirect('/admin');
+  //     })
+  //     .catch(err => {
+  //       console.log(`error ${err}`);
+  //       res.redirect('/admin');
+  //     });
+  // });
 
-  admin.post('/:order_id/cancel', (req, res) => {
-    let orderId = req.params.order_id;
-    orderIsAccepted(false, orderId)
-      .then(order => {
-        console.log(`${order}, order, ${orderId} is cancelled!`);
-        res.redirect('/admin');
-      })
-      .catch(err => {
-        console.log(`error ${err}`);
-        res.redirect('/admin');
-      });
+  // admin.post('/:order_id/ready', (req, res) => {
 
-  });
+  //   let orderId = req.params.order_id;
+  //   orderIsAccepted(false, orderId)
+  //     .then(order => {
+  //       console.log(`${order}, order, ${orderId} is ready!`);
+  //       res.redirect('/admin');
+  //     })
+  //     .catch(err => {
+  //       console.log(`error ${err}`);
+  //       res.redirect('/admin');
+  //     });
+
+  // });
 
   return admin;
 };
