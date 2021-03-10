@@ -79,19 +79,17 @@ module.exports = (db) => {
     let orderId = req.params.order_id;
     orderIsReady(true, orderId)
       .then(order => {
+        console.log(`${order}, order, ${orderId} is ready!`);
         res.redirect('/admin');
       })
       .catch(err => {
-        console.log('error');
+        console.log(`error ${err}`);
         res.redirect('/admin');
       });
-
-    console.log('accpet button');
 
   });
 
   admin.post('/:order_id/cancel', (req, res) => {
-    console.log('cancel button');
     res.redirect('/admin');
 
 
