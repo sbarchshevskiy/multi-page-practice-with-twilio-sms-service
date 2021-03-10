@@ -1,55 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <%- include('partials/_header.ejs') %>
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <!-- Bootstrap CSS -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-      <title>EZt8keOut</title>
-  </head>
+
+<head>
+  <meta charset="utf-8">
+  <%- include('partials/_header.ejs') %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>EZt8keOut</title>
+</head>
 
 <body>
 
-    <main style="margin: 1em;">
-      <h3>Orders</h3>
-      <table class="table">
+  <main style="margin: 1em;">
+    <h3>Orders</h3>
+    <table class="table table-dark table-striped">
 
-        <thead>
-          <tr>
+      <thead>
+        <tr>
 
-            <th scope="col">Order</th>
-            <th scope="col">Time to prepare </th>
-            <th scope="col">Order Status</th>
+          <th scope="col">Order_id</th>
+          <th scope="col"> Menu_items</th>
+          <th scope="col"> Client </th>
+          <th scope="col"> total_price </th>
+          <th scope="col"> SMS </th>
 
 
+        </tr>
+      </thead>
 
-          </tr>
-        </thead>
-        <div>
-        </div>
-        <tbody>
-          <tr>
-
-            <td>
-            </td>
-            <td>
-
-              </form>
-            </td>
-            <td>
-              <form method="POST" action="">
-                <button class="btn btn-outline-success">Confirm</button>
+      <tbody>
+        <tr>
+          <td>
+            <p>12</p>
+          </td>
+          <td>
+            <p>Burger + fries etc </p>
+          </td>
+          <td>
+           <p>Cat</p>
+          </td>
+          <td>
+            <p>58$</p>
+          </td>
+          <td>
+            <form method="POST" action="">
+              <button class="btn btn-outline-success">Confirm</button>
               <form method="POST" action="">
                 <button class="btn btn-outline-success">Cancel</button>
-              </form>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-    </main>
+  </main>
 </body>
 
 </html>
