@@ -28,7 +28,7 @@ module.exports = (db) => {
         const templateVars = {
           items
         };
-        res.render('menu',templateVars);
+        res.render('menu', templateVars);
       })
       .catch(err => {
         console.log(err);

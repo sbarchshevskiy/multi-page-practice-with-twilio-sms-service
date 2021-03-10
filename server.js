@@ -57,10 +57,12 @@ app.use('/login', loginRoutes(db));
 const thankYouRoutes = require("./routes/thankYou");
 app.use('/thankYou', thankYouRoutes(db));
 
+const adminRoutes = require("./routes/admin")
+app.use('/admin',adminRoutes(db))
+
 app.get("/", (req, res) => {
   res.redirect('/login');
 });
-
 
 
 app.listen(PORT, () => {
