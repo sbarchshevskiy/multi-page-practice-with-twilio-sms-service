@@ -9,7 +9,7 @@ module.exports = (db) => {
     SELECT *
     FROM menu_items;
     `)
-      .then(res => res.rows[0]);
+      .then(res => res.rows);
   };
 
   const fetchSingleItem = function(id) {
@@ -22,18 +22,29 @@ module.exports = (db) => {
 
 
    menu.get('/', (req, res) => {
-     const templateVars= {
-      menu : fetchAllItems()
 
-     }
-    res.render('menu',templateVars); // to decide on categories whether redirect.
+    fetchAllItems()
+    .then(items=>{
+      const templateVars = {
+        items
+      }
+      res.render('menu',templateVars);
+    })
+
    });
 
    menu.get('/categories/:category_id', (req, res) => {
      res.send('categories'); // to decide on categories whether redirect.
    });
   menu.get('/:menu_item_id', (req, res) => {
-     res.send('menu_item_id'); // to decide on categories whether redirect.
+    fetchSingleItem()
+    .then(items=>{
+      const templateVars = {
+        items
+      }
+      res.send('menu',templateVars);
+    })
+
   });
    return menu;
  };
