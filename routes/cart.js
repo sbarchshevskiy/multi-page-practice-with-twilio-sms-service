@@ -54,7 +54,7 @@ module.exports = (db) => {
   });
 
   cart.post('/add', (req, res) => {
-    res.send('item added'); // to decide on categories whether redirect.
+    res.render('cart'); // to decide on categories whether redirect.
   });
   cart.post('/edit', (req, res) => {
     res.send('edit item'); // to decide on categories whether redirect.
