@@ -1,8 +1,19 @@
 .tag {
   margin-top: 20em;
   margin-left: 45em;
+  color: white;
 }
 
 .h {
-  background-color: #6495ED
+  background-color: #6495ED;
+  animation: mymove 5s infinite;
 }
+
+@keyframes mymove {
+  from {background-color: red;}
+  to {background-color: blue;}
+}
+
+
+
+
