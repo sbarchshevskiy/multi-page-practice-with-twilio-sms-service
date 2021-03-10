@@ -35,7 +35,6 @@ module.exports = (db) => {
         orderObject[order.id].items.push(order.item)
       }
 
-
       const templateVars = {
         orders : Object.values(orderObject)
       }

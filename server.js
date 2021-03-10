@@ -42,14 +42,17 @@ app.use(express.static("public"));
 
 // app.use(usersRoutes);
 
-const usersRoutes = require("./routes/users");
-app.use('/', usersRoutes(db));
+// const usersRoutes = require("./routes/users");
+// app.use('/', usersRoutes(db));
 
 const menuRoutes = require("./routes/menus");
 app.use('/menu', menuRoutes(db));
 
 const cartRoutes = require("./routes/cart");
 app.use('/cart', cartRoutes(db));
+
+const loginRoutes = require("./routes/login");
+app.use('/login', loginRoutes(db));
 
 const thankYouRoutes = require("./routes/thankYou");
 app.use('/thankYou', thankYouRoutes(db));
@@ -58,7 +61,7 @@ const adminRoutes = require("./routes/admin")
 app.use('/admin',adminRoutes(db))
 
 app.get("/", (req, res) => {
-  res.render("menu");
+  res.redirect('/login');
 });
 
 

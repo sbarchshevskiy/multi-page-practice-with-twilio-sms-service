@@ -18,15 +18,27 @@
     <div class="card-body">
 
 
-        <h3>Enter Credentials</h3>
+        <div class="row">
 
-        <form class="form-group" method="POST" action="">
-            <input class="form-control" type="text" name="phone_number" placeholder="email" style="width: 300px; margin: 1em" required>
-            <input class="form-control" type="password" name="password" placeholder="password" style="width: 300px; margin: 1em" required>
 
-            <button type="submit" class="btn btn-primary">Sign in</button>
-            <a href='/register'>Register HERE</a>
-        </form>
+            <div class="col-7">
+
+              <form class="form-group" method="GET" action="/login/1">
+                <button type="submit" class="btn btn-primary">Partners</button>
+              </form>
+            </div>
+
+
+            <div class="row">
+              <div class="col-5">
+                <form class="form-group" method="GET" action="/login/2">
+                  <button type="submit" class="btn btn-primary">Clients</button>
+                </form>
+              </div>
+            </div>
+
+
+
     </div>
     <div class="card-footer text-muted"></div>
 </div>
