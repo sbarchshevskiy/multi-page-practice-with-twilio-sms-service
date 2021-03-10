@@ -19,10 +19,11 @@
 
       <thead>
         <tr>
-
           <th scope="col">Order_id</th>
-          <th scope="col"> Menu_items</th>
-          <th scope="col"> Client </th>
+          <th scope="col">Client_name</th>
+          <th scope="col"> Phone_number</th>
+          <th scope="col"> Quantity </th>
+          <th scope="col"> Items </th>
           <th scope="col"> total_price </th>
           <th scope="col"> SMS </th>
 
@@ -31,20 +32,26 @@
       </thead>
 
       <tbody>
-
+        <% for(let order in orders) { %>
         <tr>
+            <td>
+              <p><%= orders[order].id%></p>
+            </td>
           <td>
-            <p>12</p>
+            <p><%= orders[order].name %></p>
           </td>
           <td>
-            <p>Burger + fries etc </p>
+            <p><%= orders[order].phone_number %></p>
           </td>
           <td>
-           <p>Cat</p>
+           <p><%= orders[order].quantity %></p>
           </td>
           <td>
-            <p>58$</p>
+            <p><%= orders[order].item %></p>
           </td>
+            <td>
+              <p><%= orders[order].total_price %></p>
+            </td>
           <td>
             <form method="POST" action="">
               <button class="btn btn-outline-success">Confirm</button>
@@ -53,7 +60,7 @@
                 </form>
           </td>
         </tr>
-
+        <% } %>
       </tbody>
     </table>
 

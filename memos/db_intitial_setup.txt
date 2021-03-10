@@ -71,6 +71,12 @@ add email varchar(255);
 ALTER TABLE
 
 
+SELECT users.name,users.phone_number, orders.id, order_menu_items.quantity,menu_items.name , (menu_items.price * order_menu_items.quantity) as total_price
+FROM users
+JOIN orders ON users.id = user_id
+JOIN order_menu_items ON orders.id = order_id
+JOIN menu_items ON menu_items.id = menu_item_id
+GROUP BY users.name,users.phone_number,orders.id ,order_menu_items.quantity, menu_items.name ,total_price;
 
 
 
