@@ -12,9 +12,17 @@ module.exports = (db) => {
     `, [status, id]);
   };
 
+  const orderIsAccepted = function(status, id) {
+    return db.query(
+      `UPDATE orders
+      SET accepted = $1
+      where id = $2;
+    `, [status, id]);
+  };
+
   const fetchAllOrders = function() {
     return db.query(`
-      SELECT users.name, users.phone_number, orders.id, orders.is_ready, order_menu_items.quantity, menu_items.name as item, (menu_items.price * order_menu_items.quantity) as total_price
+      SELECT users.name, users.phone_number, orders.id, orders.is_ready, users.accepted, order_menu_items.quantity, menu_items.name as item, (menu_items.price * order_menu_items.quantity) as total_price
       FROM users
       JOIN orders ON users.id = user_id
       JOIN order_menu_items ON orders.id = order_id
@@ -40,7 +48,8 @@ module.exports = (db) => {
             quantity: order.quantity,
             items:[],
             totalPrice: order.total_price,
-            isReady: order.is_ready
+            isReady: order.is_ready,
+            orderAccepted : order.accepted
           };
         } for (const order of orders) {
           orderObject[order.id].items.push(order.item);
@@ -52,6 +61,7 @@ module.exports = (db) => {
         const templateVars = {
           orders : Object.values(orderObject)
         };
+        console.log('obj.val',Object.values(orderObject));
         res.render('admin',templateVars);
       })
       .catch(err => {
@@ -74,7 +84,7 @@ module.exports = (db) => {
   });
 
 
-  admin.post('/:order_id/accept', (req, res) => {
+  admin.post('/:order_id/ready', (req, res) => {
 
     let orderId = req.params.order_id;
     orderIsReady(true, orderId)
@@ -86,12 +96,33 @@ module.exports = (db) => {
         console.log(`error ${err}`);
         res.redirect('/admin');
       });
+  });
 
+  admin.post('/:order_id/accpeted', (req, res) => {
+
+    let orderId = req.params.order_id;
+    orderIsAccepted(true, orderId)
+      .then(order => {
+        console.log(`${order}, order, ${orderId} is accpeted!`);
+        res.redirect('/admin');
+      })
+      .catch(err => {
+        console.log(`error ${err}`);
+        res.redirect('/admin');
+      });
   });
 
   admin.post('/:order_id/cancel', (req, res) => {
-    res.redirect('/admin');
-
+    let orderId = req.params.order_id;
+    orderIsAccepted(false, orderId)
+      .then(order => {
+        console.log(`${order}, order, ${orderId} is cancelled!`);
+        res.redirect('/admin');
+      })
+      .catch(err => {
+        console.log(`error ${err}`);
+        res.redirect('/admin');
+      });
 
   });
 
