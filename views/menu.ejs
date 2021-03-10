@@ -2,18 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <%- include('partials/_header.ejs') %>
+
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
             integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+            <link rel="stylesheet" href="/styles/menu.styles.css" type="text/css" />
+
       <title>EZt8keOut</title>
   </head>
 <body>
+  <%- include('partials/_header.ejs') %>
   <main style="margin: 1em;">
     <h3>Menu 📔</h3>
     <table class="table table-striped">
-      <table class="table">
+
         <thead>
           <tr>
             <th scope="col">Photo</th>
@@ -29,7 +33,11 @@
           <% for (let item in items) { %>
 
           <tr>
-            <th scope="row"> <%= items[item].thumbnail %> </th>
+            <th scope="row">
+              <div class='image-wrapper'>
+                <img src= <%= items[item].thumbnail %> class="img-thumbnail" alt="burger">
+              </div>
+            </th>
 
             <td> <%= items[item].name %> </td>
             <td> <%= items[item].cooking_time %> </td>
@@ -41,7 +49,6 @@
           <% } %>
 
         </tbody>
-      </table>
 
     </table>
 
