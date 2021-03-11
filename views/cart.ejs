@@ -14,7 +14,7 @@
 <body>
 
     <main style="margin: 1em;">
-      <h3>C🛒rt for order #<%= cart[0].order_id %></h3>
+      <h3>cart 🛒 for order #<%= cart[0].order_id %></h3>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -54,7 +54,7 @@
       </table>
     <div class="submit-button">
 
-      <form method="POST" action="cart/submit">
+      <form method="POST" action="cart/<%= cart[0].order_id %>/submit">
         <button class="btn btn-outline-success">Submit</button>
       </form>
     </div>

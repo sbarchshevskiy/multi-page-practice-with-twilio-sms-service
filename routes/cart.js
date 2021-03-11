@@ -26,7 +26,7 @@ module.exports = (db) => {
 
       .then(id => {
         return db.query(`
-      SELECT orders.id as order_id, menu_items.name as item, menu_items.thumbnail, order_menu_items.quantity as quantity,menu_items.price as price_per_item, (menu_items.price * order_menu_items.quantity) as total_price
+      SELECT orders.id as order_id, menu_items.name as item, menu_items.thumbnail, order_menu_items.quantity as quantity,menu_items.price as price_per_item, (menu_items.price * order_menu_items.quantity) as total_price, orders.is_completed
       FROM users
       JOIN orders ON users.id = user_id
       JOIN order_menu_items ON orders.id = order_id
@@ -50,10 +50,11 @@ module.exports = (db) => {
           total += item.total_price;
         }
         const templateVars = {
-          cart,total
+          cart,
+          total
         };
-        console.log(cart);
-        res.render('cart',templateVars);
+        console.log('cart: ',cart);
+        res.render('cart', templateVars);
       })
       .catch(err =>{
         console.log(err);
@@ -73,8 +74,10 @@ module.exports = (db) => {
 
   cart.post('/:order_id/submit', (req, res) => {
 
-    const orderId = req.session.order_id;
-    console.log('order id cookie ',orderId);
+    console.log('on submit');
+
+    const orderId = req.params.order_id;
+    console.log('order id cookie ', orderId);
     submitOrder(true, orderId)
       .then(order => {
         console.log('order: ', order);
@@ -82,7 +85,7 @@ module.exports = (db) => {
       .catch(error => console.log('error', error));
 
 
-    res.redirect('/thankyou'); // sends to thank you & triggers SMS
+    res.redirect('/cart'); // sends to thank you & triggers SMS
   });
 
   return cart;
