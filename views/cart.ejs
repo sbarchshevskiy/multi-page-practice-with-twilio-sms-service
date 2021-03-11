@@ -13,8 +13,10 @@
 </head>
 <body>
   <main style="margin: 1em;">
-    <h3>cart 🛒 for order #<%= cart[0].order_id %>
-    </h3>
+   <% if(!cart.length){ %>
+      <h3>Your cart is empty !!!</h3>
+   <% } else { %>
+    <h3>cart 🛒 for order #<%= cart[0].order_id %></h3>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -70,5 +72,6 @@
       </form>
     </div>
   </main>
+<% } %>
 </body>
 </html>

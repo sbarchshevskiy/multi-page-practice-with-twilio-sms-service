@@ -83,7 +83,7 @@ const updateCartWithItem = function(menu_item_id,quantity) {
   })
 }
 
-const createCartWithItem = function () {
+const createCartWithItem = function (user_id, menu_item_id,quantity) {
   return db.query (`
   INSERT  INTO orders (user_id,is_ready, is_accepted, time_created, is_completed)
   VALUES ($1,null,null,null,false)
@@ -116,12 +116,12 @@ const createCartWithItem = function () {
       .then(res => res.rows[0].is_completed)
       .then(is_completed => {
         if (is_completed) {
-          createCartWithItem(menu_item_id,1)
+          createCartWithItem(2,menu_item_id,1)
             .then( () => {
-
             res.redirect('/cart')
             })
             .catch(err => {
+              console.log(err)
               res.redirect('/cart')
             })
         } else {
@@ -130,6 +130,7 @@ const createCartWithItem = function () {
               res.redirect('/cart')
             })
             .catch(err => {
+              console.log(err)
               res.redirect('/cart')
             })
         }
@@ -155,6 +156,13 @@ const createCartWithItem = function () {
     console.log('order id cookie ', orderId);
     submitOrder(true, orderId)
       .then(order => {
+        db.query (`
+        INSERT  INTO orders (user_id,is_ready, is_accepted, time_created, is_completed)
+        VALUES ($1,null,null,null,false)
+        `,[2])
+        .then(res => {
+          console.log(res.rows)
+        })
         console.log(`${order} order id, ${orderId} is completed on clients side`);
         res.redirect('/thankYou');
       })
