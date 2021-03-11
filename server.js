@@ -39,11 +39,11 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+app.use(function (req, res, next) {
+  console.log('Time:', Date.now())
+  next()
+})
 
-// app.use(usersRoutes);
-
-// const usersRoutes = require("./routes/users");
-// app.use('/', usersRoutes(db));
 
 const menuRoutes = require("./routes/menus");
 app.use('/menu', menuRoutes(db));
