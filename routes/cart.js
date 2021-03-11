@@ -72,6 +72,8 @@ module.exports = (db) => {
     res.send('items reset'); // to decide on categories whether redirect.
   });
 
+  
+
   cart.post('/:order_id/submit', (req, res) => {
 
     console.log('on submit');
@@ -84,7 +86,7 @@ module.exports = (db) => {
         res.redirect('/cart');
       })
       .catch(error => console.log('error', error));
-      
+
     res.redirect('/cart'); // sends to thank you & triggers SMS
   });
 
