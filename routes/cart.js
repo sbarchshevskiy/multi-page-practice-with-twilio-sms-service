@@ -53,9 +53,82 @@ module.exports = (db) => {
     })
   });
 
-  cart.post('/add', (req, res) => {
-    res.render('cart'); // to decide on categories whether redirect.
+const updateCartWithItem = function(menu_item_id,quantity) {
+  return db.query(`
+  SELECT id
+  FROM orders
+  ORDER BY id DESC`)
+  .then(res => {
+    console.log(res.rows)
+    return res.rows[0].id
+  })
+  .then(id=>{
+    return db.query (`
+    INSERT INTO order_menu_items (menu_item_id,quantity,order_id)
+    VALUES ($1,$2,$3)
+    `, [menu_item_id,quantity,id])
+  })
+  .then(res => {
+   console.log(res.rows)
+   return res.rows
+  })
+}
+
+const createCartWithItem = function () {
+  return db.query (`
+  INSERT  INTO orders (user_id,is_ready, is_accepted, time_created, is_completed)
+  VALUES ($1,null,null,null,false)
+  RETURNING *
+  `,[user_id])
+  .then(res => {
+    console.log(res.rows)
+    return res.rows[0].id
+  })
+  .then(id=>{
+    return db.query (`
+    INSERT INTO order_menu_items (menu_item_id,quantity,order_id)
+    VALUES ($1,$2,$3)
+    `, [menu_item_id,quantity,id])
+  })
+  .then(res => {
+   console.log(res.rows)
+   return res.rows
+  })
+}
+
+
+
+  cart.post('/add/:menu_item_id', (req, res) => {
+    const menu_item_id = req.params.menu_item_id
+    db.query(`
+    SELECT id,is_completed
+    FROM orders
+    ORDER BY id DESC`)
+      .then(res => res.rows[0].is_completed)
+      .then(is_completed => {
+        if (is_completed) {
+          createCartWithItem(menu_item_id,1)
+            .then( () => {
+
+            res.redirect('/cart')
+            })
+            .catch(err => {
+              res.redirect('/cart')
+            })
+        } else {
+          updateCartWithItem(menu_item_id,1)
+            .then(() => {
+              res.redirect('/cart')
+            })
+            .catch(err => {
+              res.redirect('/cart')
+            })
+        }
+      })
   });
+
+
+
   cart.post('/edit', (req, res) => {
     res.send('edit item'); // to decide on categories whether redirect.
   });
