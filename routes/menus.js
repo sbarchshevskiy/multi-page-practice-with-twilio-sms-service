@@ -20,11 +20,18 @@ module.exports = (db) => {
       .then(res=>res.rows[0]);
   };
 
+  const renderMenuOption = function(id) {
+    return db.query(
+      `SELECT *
+      FROM menu_items
+      WHERE menu_id = $1
+      `, [id])
+      .then(res => res.rows);
+  };
 
   menu.get('/', (req, res) => {
-
     fetchAllItems()
-      .then(items=>{
+      .then(items => {
         const templateVars = {
           items
         };
@@ -32,16 +39,29 @@ module.exports = (db) => {
       })
       .catch(err => {
         console.log(err);
-        res.render("menu");
+        res.status(500).json(err);
       });
   });
 
-  menu.get('/categories/:category_id', (req, res) => {
-    res.send('categories'); // to decide on categories whether redirect.
+  menu.get('/:menu_id', (req, res) => {
+    console.log('menu item id');
+    renderMenuOption(req.params.menu_id)
+      .then(items => {
+        const templateVars = {
+          items
+        };
+        res.render('menu', templateVars);
+      })
+      .catch(error => {
+        console.log('error', error);
+        res.status(500).json(error);
+      });
   });
+
+
   menu.get('/:menu_item_id', (req, res) => {
     fetchSingleItem()
-      .then(items=>{
+      .then(items => {
         const templateVars = {
           items
         };

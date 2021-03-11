@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
 
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <!-- Bootstrap CSS -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
 
-            <link rel="stylesheet" href="/styles/menu.styles.css" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-      <title>EZt8keOut</title>
-  </head>
+  <link rel="stylesheet" href="/styles/menu.styles.css" type="text/css" />
+
+  <title>EZt8keOut</title>
+</head>
+
 <body>
   <%- include('partials/_header.ejs') %>
-  <main style="margin: 1em;">
-    <h3>Menu 📔</h3>
-    <table class="table table-striped">
+    <main style="margin: 1em;">
+      <h3>Menu 📔</h3>
+      <table class="table table-striped">
 
         <thead>
           <tr>
@@ -30,29 +32,41 @@
         </thead>
         <tbody>
 
+
           <% for (let item in items) { %>
 
-          <tr>
-            <th scope="row">
-              <div class='image-wrapper'>
-                <img src= <%= items[item].thumbnail %> class="img-thumbnail" alt="burger">
-              </div>
-            </th>
+            <tr>
+              <th scope="row">
+                <div class='image-wrapper'>
+                  <img src=<%=items[item].thumbnail %> class="img-thumbnail" alt="burger">
+                </div>
+              </th>
 
-            <td> <%= items[item].name %> </td>
-            <td> <%= items[item].cooking_time %> </td>
-            <td><%= items[item].description %></td>
-            <td>$<%= items[item].price %></td>
-            <td>  <form method="POST" action="/cart/add">
-              <button class="btn btn-outline-danger">Add To Cart</button> </td>
-          </tr>
-          <% } %>
+              <td>
+                <%= items[item].name %>
+              </td>
+              <td>
+                <%= items[item].cooking_time %>
+              </td>
+              <td>
+                <%= items[item].description %>
+              </td>
+              <td>$<%= items[item].price %>
+              </td>
+              <td>
+                <form method="POST" action="/cart/add">
+                  <button class="btn btn-outline-danger">Add To Cart</button>
+              </td>
+            </tr>
+
+            <% } %>
 
         </tbody>
 
-    </table>
+      </table>
 
-  </main>
+    </main>
 
 </body>
+
 </html>
