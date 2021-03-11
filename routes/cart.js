@@ -80,11 +80,11 @@ module.exports = (db) => {
     console.log('order id cookie ', orderId);
     submitOrder(true, orderId)
       .then(order => {
-        console.log('order: ', order);
+        console.log(`${order} order id, ${orderId} is completed on clients side`);
+        res.redirect('/cart');
       })
       .catch(error => console.log('error', error));
-
-
+      
     res.redirect('/cart'); // sends to thank you & triggers SMS
   });
 
