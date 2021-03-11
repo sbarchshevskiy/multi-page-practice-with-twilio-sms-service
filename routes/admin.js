@@ -20,9 +20,7 @@ module.exports = (db) => {
       WHERE id = $1;
     `, [id])
       .then(res => res.rows[0].phone_number);
-
   };
-
 
   const orderConfirmed = function(status, id) {
     return db.query(
