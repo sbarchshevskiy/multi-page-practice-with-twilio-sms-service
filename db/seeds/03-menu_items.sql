@@ -7,7 +7,7 @@ values(3, 1, 'Sirloin Burger', 22, 'This fancy patty is for the fine palets.', 2
 insert into menu_items
 values(4, 1, 'Classic Burger with fries', 18, 'When one of our classic is not enough...', 30, 'https://bit.ly/2OHQN2x');
 insert into menu_items
-values(5, 1, 'Cheese Tower Buger', 18, 'When a Cheeseburger is not enough anymore', 30, 'https://bit.ly/3bAqEvy');
+values(5, 1, 'Cheese Tower Burger', 18, 'When a Cheeseburger is not enough anymore', 30, 'https://bit.ly/3bAqEvy');
 insert into menu_items
 values(6, 1, 'Chicken Burger with a twist', 15, 'Chicken that will change your life. ', 25, 'https://bit.ly/3l4fwdc');
 insert into menu_items
@@ -17,13 +17,13 @@ values(8, 1, 'Classic Hot Dog', 6, 'You can buy one or 3, you will thank us', 12
 insert into menu_items
 values(9, 1, 'Classic Chocolate Milkshake', 8, 'For the chocolate lovers', 10, 'https://bit.ly/3vdmr8N');
 insert into menu_items
-values(10, 1, 'Classic Strawberry Milkshare', 8, 'If chocolate is too sweet for you, this fruity Milkshake will do the trick.', 10, 'https://bit.ly/2OnFrRp');
+values(10, 1, 'Classic Strawberry Milkshake', 8, 'If chocolate is too sweet for you, this fruity Milkshake will do the trick.', 10, 'https://bit.ly/2OnFrRp');
 insert into menu_items
 values(11, 1, 'Classic Vanilla Milkshake', 8, 'Sweet and Vanilla flavored.', 10, 'https://bit.ly/3t7Zm5E');
 insert into menu_items
 values(12, 1, 'Pepperoni Pizza by the Slice', 15, 'We only sell it by the slice so you come back and get more.', 25, 'https://bit.ly/38qFLFW');
 insert into menu_items
-values(13, 2, 'Sweet Patato Fries', 6, 'When you need some extra fries but want to be fancy. ', 10, 'https://bit.ly/3bAmWSD');
+values(13, 2, 'Sweet Potatoes Fries', 6, 'When you need some extra fries but want to be fancy. ', 10, 'https://bit.ly/3bAmWSD');
 insert into menu_items
 values(14, 2, 'Fries', 4, 'When you need some extra fries. ', 10, 'https://bit.ly/30xoDKk');
 insert into menu_items
