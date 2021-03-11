@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=RocknRoll+One&display=swap');
+
+body {
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 885px) {
+  body {
+    background-image: url("https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+  }
+}
+
+@media (min-width: 481px) and (max-width: 884px) {
+  body {
+    background-image: url("https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=701&q=80");
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    background-image: url("https://images.unsplash.com/photo-1526932327020-7a14bdf64f8d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80");
+  }
+}
+
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #adff2f;
+  font-size: 3em;
+  padding-top: 3%;
+  font-family: 'DotGothic16', sans-serif;
+}
+
+.buttons-box {
+width: 500px;
+margin-top: 10em;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: 'RocknRoll One', sans-serif;
+}

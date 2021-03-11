@@ -3,10 +3,13 @@ const admin  = express.Router();
 
 
 require('dotenv').config();
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const accountSid = process.env.TWILIO_ACCOUNT_SID
 console.log(accountSid);
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client =  require('twilio')(accountSid, authToken);
+const authToken = process.env.TWILIO_AUTH_TOKEN
+let client
+if (accountSid && authToken) {
+  client =  require('twilio')(accountSid, authToken);
+}
 
 
 
