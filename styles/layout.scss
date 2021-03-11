@@ -10,6 +10,9 @@ body {
   }
 }
 
+.navbar-brand {
+  height: 80px;
+}
 
 
 /*sets background theme*/
@@ -19,15 +22,6 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-}
-
-.background-image {
-  height: 1569px;
-  width: 1388px;
-  background-image: linear-gradient(rgba(26,26, 26, 0.7), rgba(26,26, 26, 0.7), url("../images/loginSample.png"));
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
 }
 
 .background-image-copy {
@@ -46,7 +40,3 @@ body {
   }
 
 }
-
-
-
-
