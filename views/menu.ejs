@@ -43,8 +43,11 @@
             <td> <%= items[item].cooking_time %> </td>
             <td><%= items[item].description %></td>
             <td>$<%= items[item].price %></td>
-            <td>  <form method="POST" action="/cart/add">
-              <button class="btn btn-outline-danger">Add To Cart</button> </td>
+            <td>
+              <form method="POST" action="/cart/add/<%= items[item].id %>">
+              <button class="btn btn-outline-danger">Add To Cart</button>
+              </form>
+             </td>
           </tr>
           <% } %>
 
