@@ -13,21 +13,37 @@ const client =  require('twilio')(accountSid, authToken);
 
 module.exports = (db) => {
 
+  const getPhoneNumber = function(id) {
+    return db.query(`
+      SELECT phone_number, id
+      FROM users
+      WHERE id = $1;
+    `, [id])
+      .then(res => res.rows[0].phone_number);
+
+  };
+
+
   const orderConfirmed = function(status, id) {
     return db.query(
       `UPDATE orders
       SET is_accepted = $1
-      where id = $2;
-    `, [status, id]);
+      where id = $2
+      RETURNING *;
+    `, [status, id])
+      .then(res => res.rows[0]);
   };
 
-  // const orderDeclined = function(status, id) {
-  //   return db.query(
-  //     `UPDATE orders
-  //     SET is_accepted = $1
-  //     where id = $2;
-  //   `, [status, id]);
-  // };
+  const orderDeclined = function(status, id) {
+    return db.query(
+      `UPDATE orders
+
+      SET is_accepted = $1
+      where id = $2
+      RETURNING *;
+    `, [status, id])
+      .then(res => res.rows[0]);
+  };
 
   // const orderReady = function(status, id) {
   //   return db.query(
@@ -44,7 +60,7 @@ module.exports = (db) => {
       // the number of free texts is limited, use the feature wisely
       body: message,
       from: '+19292948737',
-      to: clientsNumber
+      to: `+1${clientsNumber}`
     })
       .then(message => console.log(message))
       .catch((err) => console.log(err));
@@ -66,11 +82,10 @@ module.exports = (db) => {
   };
 
   admin.get('/', (req, res) => {
-    // global DB object
-    let globalObject;
+
 
     fetchAllOrders()
-      .then(orders=>{
+      .then(orders => {
         const orderObject = {};
         for (const order of orders) {
           orderObject[order.id] = {
@@ -86,16 +101,15 @@ module.exports = (db) => {
         } for (const order of orders) {
           orderObject[order.id].items.push(order.item);
         }
+        console.log('ord obj ',orderObject);
 
-        globalObject = orderObject;
-        console.log('global', globalObject);
-        console.log('ring rring ', req.params.phone_number);
 
 
         const templateVars = {
           orders : Object.values(orderObject)
         };
-        console.log('obj.val',Object.values(orderObject).phoneNumber);
+
+        console.log('template vars: ', templateVars);
         res.render('admin',templateVars);
       })
       .catch(err => {
@@ -103,29 +117,20 @@ module.exports = (db) => {
         res.render('admin');
       });
 
-
-    const getPhone = function(obj, id) {
-      let phoneNumber = '';
-      for (let item in obj) {
-        phoneNumber = obj[item].phone_number[id];
-      }
-      console.log('order stt',phoneNumber);
-      return phoneNumber;
-    };
-    console.log(getPhone('test global db obj', globalObject));
-
   });
-
-
 
 
   admin.post('/:order_id/accept', (req, res) => {
 
-    let clientPhoneNumber = req.params.phoneNumber;
+
     let orderId = req.params.order_id;
-    console.log('ring rring ', clientPhoneNumber);
     orderConfirmed(true, orderId)
       .then(order => {
+        getPhoneNumber(order.user_id)
+          .then(phoneNumber => {
+            sendSms(phoneNumber, 'confirmed');
+          })
+          .catch(error => console.log(error));
         console.log(`${order}, order, ${orderId} has been confirmed!`);
         res.redirect('/admin');
       })
@@ -135,22 +140,28 @@ module.exports = (db) => {
       });
   });
 
-  // admin.post('/:order_id/cancel', (req, res) => {
+  admin.post('/:order_id/cancel', (req, res) => {
 
-  //   let orderId = req.params.order_id;
-  //   orderDeclined(false, orderId)
-  //     .then(order => {
-  //       console.log(`${order}, order, ${orderId} has been declined!`);
-  //       res.redirect('/admin');
-  //     })
-  //     .catch(err => {
-  //       console.log(`error ${err}`);
-  //       res.redirect('/admin');
-  //     });
-  // });
+
+    console.log('check route');
+    let orderId = req.params.order_id;
+    orderDeclined(false, orderId)
+      .then(order => {
+        getPhoneNumber(order.user_id)
+          .then(phoneNumber => {
+            sendSms(phoneNumber, 'cancelled');
+          })
+          .catch(error => console.log(error));
+        console.log(`${order}, order, ${orderId} has been declined!`);
+        res.redirect('/admin');
+      })
+      .catch(err => {
+        console.log(`error ${err}`);
+        res.redirect('/admin');
+      });
+  });
 
   // admin.post('/:order_id/ready', (req, res) => {
-
   //   let orderId = req.params.order_id;
   //   orderIsAccepted(false, orderId)
   //     .then(order => {
@@ -161,7 +172,6 @@ module.exports = (db) => {
   //       console.log(`error ${err}`);
   //       res.redirect('/admin');
   //     });
-
   // });
 
   return admin;

@@ -19,12 +19,12 @@
 
       <thead>
         <tr>
-          <th scope="col">Order_id</th>
-          <th scope="col">Client_name</th>
-          <th scope="col"> Phone_number</th>
+          <th scope="col">Order id</th>
+          <th scope="col">Client Name</th>
+          <th scope="col"> Phone Number</th>
           <th scope="col"> Items </th>
-          <th scope="col"> total_price </th>
-          <th scope="col"> SMS </th>
+          <th scope="col"> Total Price </th>
+          <th scope="col"> Actions </th>
 
 
         </tr>
@@ -40,7 +40,7 @@
             <p><%= orders[order].name %></p>
           </td>
           <td>
-            <p><%= orders[order].phone_number %></p>
+            <p><%= orders[order].phoneNumber %></p>
           </td>
           <td>
             <% for ( const item of orders[order].items) { %>
@@ -48,14 +48,29 @@
             <% } %>
           </td>
             <td>
-              <p><%= orders[order].total_price %></p>
+              <p><%= orders[order].totalPrice %></p>
             </td>
           <td>
-            <form method="POST" action="/admin/<%= orders[order].id%>/accept">
-              <button class="btn btn-outline-success">Confirm </button>
-              <form method="POST" action="/admin/<%= orders[order].id%>/cancel">
-                <button class="btn btn-outline-danger">Cancel</button>
+
+            <% if (orders[order].orderAccepted === null) { %>
+
+              <form method="POST" action="/admin/<%= orders[order].id%>/accept">
+                <button type="submit" class="btn btn-outline-success">Confirm </button>
+              </form>
+                <form method="POST" action="/admin/<%= orders[order].id%>/cancel">
+                  <button type="submit" class="btn btn-outline-danger">Cancel</button>
+                  </form>
+              <% } else if (orders[order].orderAccepted) {%>
+
+                <form method="POST" action="/admin/<%= orders[order].id%>/accept">
+                  <button type="submit" class="btn btn-outline-success">Confirmed </button>
                 </form>
+                <% } else {%>
+                  <form method="POST" action="/admin/<%= orders[order].id%>/cancel">
+                    <button type="submit" class="btn btn-outline-danger">Canceled</button>
+                    </form>
+                  <% } %>
+
           </td>
         </tr>
         <% } %>
