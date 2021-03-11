@@ -35,31 +35,24 @@
 
           <% for (let item in items) { %>
 
-            <tr>
-              <th scope="row">
-                <div class='image-wrapper'>
-                  <img src=<%=items[item].thumbnail %> class="img-thumbnail" alt="burger">
-                </div>
-              </th>
+          <tr>
+            <th scope="row">
+              <div class='image-wrapper'>
+                <img src= <%= items[item].thumbnail %> class="img-thumbnail" alt="burger">
+              </div>
+            </th>
 
-              <td>
-                <%= items[item].name %>
-              </td>
-              <td>
-                <%= items[item].cooking_time %>
-              </td>
-              <td>
-                <%= items[item].description %>
-              </td>
-              <td>$<%= items[item].price %>
-              </td>
-              <td>
-                <form method="POST" action="/cart/add">
-                  <button class="btn btn-outline-danger">Add To Cart</button>
-              </td>
-            </tr>
-
-            <% } %>
+            <td> <%= items[item].name %> </td>
+            <td> <%= items[item].cooking_time %> </td>
+            <td><%= items[item].description %></td>
+            <td>$<%= items[item].price %></td>
+            <td>
+              <form method="POST" action="/cart/add/<%= items[item].id %>">
+              <button class="btn btn-outline-danger">Add To Cart</button>
+              </form>
+             </td>
+          </tr>
+          <% } %>
 
         </tbody>
 
