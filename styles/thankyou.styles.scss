@@ -1,0 +1,22 @@
+.tag {
+  margin: 0 auto;
+  margin-top: 5em;
+  width: 800px;
+  color: white;
+  font-size: 3em;
+  text-align: center;
+}
+
+.h {
+  background-color: #6495ED;
+  animation: mymove 5s infinite;
+}
+
+@keyframes mymove {
+  from {background-color: red;}
+  to {background-color: blue;}
+}
+
+
+
+
