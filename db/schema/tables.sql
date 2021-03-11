@@ -20,7 +20,8 @@ id serial primary key not null,
 user_id integer REFERENCES users(id) ON DELETE CASCADE,
 is_ready boolean,
 is_accepted boolean,
-time_created TIMESTAMP
+time_created TIMESTAMP,
+is_completed boolean
 );
 
 create table menu_items(
