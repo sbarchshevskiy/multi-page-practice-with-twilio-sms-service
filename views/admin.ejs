@@ -14,83 +14,69 @@
 <body>
 
   <main style="margin: 1em;">
-
     <h3>Orders</h3>
-
+    <table class="table table-dark table-striped">
 
       <thead>
-        <div>
+        <tr>
           <th scope="col">Order id</th>
           <th scope="col">Client Name</th>
           <th scope="col"> Phone Number</th>
           <th scope="col"> Items </th>
           <th scope="col"> Total Price </th>
           <th scope="col"> Actions </th>
-        </div>
+
+
+        </tr>
       </thead>
 
-      <div>
+      <tbody>
         <% for(let order in orders) { %>
-          <div>
+        <tr>
+            <td>
+              <p><%= orders[order].id%></p>
+            </td>
+          <td>
+            <p><%= orders[order].name %></p>
+          </td>
+          <td>
+            <p><%= orders[order].phoneNumber %></p>
+          </td>
+          <td>
+            <% for ( const item of orders[order].items) { %>
+            <p><%= item %></p>
+            <% } %>
+          </td>
+            <td>
+              <p><%= orders[order].totalPrice %></p>
+            </td>
+          <td>
 
-            <div>
+            <% if (orders[order].orderAccepted === null) { %>
 
-                <%= orders[order].id%>
-
-            </div>
-
-            <div>
-
-                <%= orders[order].name %>
-
-            </div>
-
-
-
-            <div>
-
-                <%= orders[order].phoneNumber %>
-
-            </div>
-
-            <div>
-
-                <% for ( const item of orders[order].items) { %>
-
-                <%= item %>
-
-              <% } %>
-            </div>
-
-            <div>
-
-                <%= orders[order].totalPrice %>
-
-            </div>
-
-                <div>
-                 <% if (orders[order].orderAccepted===null) { %>
-
-                 <form method="POST" action="/admin/<%= orders[order].id%>/accept">
-                  <button type="submit" class="btn btn-outline-success">Confirm </button>
-                 </form>
-                 <form method="POST" action="/admin/<%= orders[order].id%>/cancel">
+              <form method="POST" action="/admin/<%= orders[order].id%>/accept">
+                <button type="submit" class="btn btn-outline-success">Confirm </button>
+              </form>
+                <form method="POST" action="/admin/<%= orders[order].id%>/cancel">
                   <button type="submit" class="btn btn-outline-danger">Cancel</button>
-                 </form>
-                 <% } else if (orders[order].orderAccepted) {%>
-
-                  <form method="POST" action="/admin/<%= orders[order].id%>/accept">
-                    <button type="submit" class="btn btn-outline-success">Confirmed </button>
                   </form>
-                 <% } else {%>
-                    <form method="POST" action="/admin/<%= orders[order].id%>/cancel">
-                      <button type="submit" class="btn btn-outline-danger">Canceled</button>
+              <% } else if (orders[order].orderAccepted) {%>
+
+                <form method="POST" action="/admin/<%= orders[order].id%>/accept">
+                  <button type="submit" class="btn btn-outline-success">Confirmed </button>
+                </form>
+                <% } else {%>
+                  <form method="POST" action="/admin/<%= orders[order].id%>/cancel">
+                    <button type="submit" class="btn btn-outline-danger">Canceled</button>
                     </form>
-                <% } %>
-            </div>
-          </div>
-          <% } %>
-      </div>
+                  <% } %>
+
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+
   </main>
 </body>
 
