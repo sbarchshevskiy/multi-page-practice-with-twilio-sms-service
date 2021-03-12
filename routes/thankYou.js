@@ -9,9 +9,9 @@ const fetchBiggestCookingTime = () => {
   SELECT MAX(cooking_time)
   FROM menu_items
   INNER JOIN order_menu_items ON menu_items.id = order_menu_items.menu_item_id
- INNER JOIN orders ON orders.id = order_menu_items.order_id
- WHERE orders.user_id = $1
- GROUP BY order_menu_items.order_id
+  INNER JOIN orders ON orders.id = order_menu_items.order_id
+  WHERE orders.user_id = $1
+  GROUP BY order_menu_items.order_id
   ORDER BY order_menu_items.order_id DESC
   ;`, [2])
   .then(res => res.rows[0].max);
@@ -21,20 +21,15 @@ thankYou.get('/', (req, res) => {
   fetchBiggestCookingTime()
   .then(cookingTime => {
     const templateVars = {
-      cookingTime
+      cookingTime,
+      userInfo: req.userInfo
     };
     res.render('thankyou', templateVars);
   })
-  .catch(err => {
-    console.log(err)
-    res.render('thankyou');
+    .catch(err => {
+      console.log(err)
+      res.render('thankyou');
+    });
   });
-});
-
-
-
-// thankYou.get('/', (req, res) => {
-//   res.render('thankyou');
-//   });
- return thankYou;
-  };
+   return thankYou;
+};

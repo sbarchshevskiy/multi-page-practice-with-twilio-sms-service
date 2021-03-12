@@ -51,7 +51,8 @@ module.exports = (db) => {
         }
         const templateVars = {
           cart,
-          total
+          total,
+          userInfo :req.userInfo
         };
         console.log('cart: ',cart);
         res.render('cart', templateVars);
