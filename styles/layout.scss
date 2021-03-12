@@ -1,6 +1,15 @@
 // See: https://sass-lang.com/
 
 
+.navbar {
+	navbar-expand-md {
+		navbar-light {
+			color: salmon;
+			height: 80px;
+		}
+	}
+}
+
 
 body {
   background-color: #EEE;
@@ -8,10 +17,6 @@ body {
   h1 {
     color: #244751;
   }
-}
-
-.navbar-brand {
-  height: 80px;
 }
 
 
