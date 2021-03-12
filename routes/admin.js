@@ -98,7 +98,7 @@ module.exports = (db) => {
         console.log('ord obj ',orderObject);
 
         const templateVars = {
-          orders : Object.values(orderObject),
+          orders : Object.values(orderObject).reverse(),
           userInfo :req.userInfo
         };
 
