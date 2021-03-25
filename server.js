@@ -39,11 +39,24 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+app.use(function (req, res, next) {
+  db.query (`
+  SELECT *
+  FROM users
+  WHERE id = $1;`, [req.session.userId])
+  .then( dbres => {
+   if (dbres.rows[0]) {
+    req.userInfo = dbres.rows[0]
+   } else {
+   req.userInfo = 25
+   }
+   next()
+  })
+  .catch(err => {
+    console.log(err)
+  })
+})
 
-// app.use(usersRoutes);
-
-// const usersRoutes = require("./routes/users");
-// app.use('/', usersRoutes(db));
 
 const menuRoutes = require("./routes/menus");
 app.use('/menu', menuRoutes(db));

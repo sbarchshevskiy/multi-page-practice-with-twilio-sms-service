@@ -38,7 +38,6 @@ module.exports = (db) => {
   const orderDeclined = function(status, id) {
     return db.query(
       `UPDATE orders
-
       SET is_accepted = $1
       where id = $2
       RETURNING *;
@@ -46,13 +45,6 @@ module.exports = (db) => {
       .then(res => res.rows[0]);
   };
 
-  // const orderReady = function(status, id) {
-  //   return db.query(
-  //     `UPDATE orders
-  //     SET is_ready = $1
-  //     where id = $2;
-  //   `, [status, id]);
-  // };
 
 
   const sendSms = function(clientsNumber, message) {
@@ -105,9 +97,9 @@ module.exports = (db) => {
         }
         console.log('ord obj ',orderObject);
 
-
         const templateVars = {
-          orders : Object.values(orderObject)
+          orders : Object.values(orderObject).reverse(),
+          userInfo :req.userInfo
         };
 
         console.log('template vars: ', templateVars);
@@ -161,19 +153,6 @@ module.exports = (db) => {
         res.redirect('/admin');
       });
   });
-
-  // admin.post('/:order_id/ready', (req, res) => {
-  //   let orderId = req.params.order_id;
-  //   orderIsAccepted(false, orderId)
-  //     .then(order => {
-  //       console.log(`${order}, order, ${orderId} is ready!`);
-  //       res.redirect('/admin');
-  //     })
-  //     .catch(err => {
-  //       console.log(`error ${err}`);
-  //       res.redirect('/admin');
-  //     });
-  // });
 
   return admin;
 };

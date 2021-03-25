@@ -33,7 +33,8 @@ module.exports = (db) => {
     fetchAllItems()
       .then(items => {
         const templateVars = {
-          items
+          items,
+          userInfo :req.userInfo
         };
         res.render('menu', templateVars);
       })
@@ -48,7 +49,8 @@ module.exports = (db) => {
     renderMenuOption(req.params.menu_id)
       .then(items => {
         const templateVars = {
-          items
+          items,
+          userInfo :req.userInfo
         };
         res.render('menu', templateVars);
       })
@@ -63,7 +65,8 @@ module.exports = (db) => {
     fetchSingleItem()
       .then(items => {
         const templateVars = {
-          items
+          items,
+          userInfo :req.userInfo
         };
         res.send('menu',templateVars);
       })
